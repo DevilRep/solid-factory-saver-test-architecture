@@ -5,7 +5,7 @@ This is a sandbox to test some architecture ideas on a simple example and find o
 ## Docs
 - Main Terms
 - Architecture
-- Situations and examples of solutions
+- Challenges and examples of solutions
 
 ## Setup
 
