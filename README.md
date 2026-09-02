@@ -4,7 +4,7 @@ This is a sandbox to test some architecture ideas on a simple example and find o
 
 ## Docs
 - [Terms](/docs/terms.md)
-- Architecture
+- [Architecture](/docs/architecture.md)
 - Challenges and examples of solutions
 
 ## Setup
