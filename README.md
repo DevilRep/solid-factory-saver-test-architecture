@@ -3,7 +3,7 @@
 This is a sandbox to test some architecture ideas on a simple example and find out how to adopt these ideas to new requirements.
 
 ## Docs
-- [Main Terms](/terms.md)
+- [Terms](/docs/terms.md)
 - Architecture
 - Challenges and examples of solutions
 

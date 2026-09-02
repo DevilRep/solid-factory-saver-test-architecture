@@ -16,7 +16,7 @@ While business logic is often separated from other parts of the application (lik
 
 ### Repository
 
-This is a [service](#service) that conceals all information about where and how the data is stored. Using such classes helps separate business logic from storage logic and makes it easier to update the storage part without changing the business logic. For example, user information can be stored in one place (like a DB) or in multiple places (own DB and the external one) at the same time - the repository will hide these details and provide the same interface for both cases.
+This is a [service](#service) that conceals all information about where and how the data is stored. This class only reads the data. Using such classes helps separate business logic from storage logic and makes it easier to update the storage part without changing the business logic. For example, user information can be stored in one place (like a DB) or in multiple places (own DB and the external one) at the same time - the repository will hide these details and provide the same interface for both cases.
 
 ### Factory
 
@@ -25,3 +25,7 @@ This is a [service](#service) that helps create objects and hides all details re
 ### Wrapper
 
 This is a class that receives an object of another class (the base class) as a constructor parameter and then provides new methods that call one or more methods from the provided object. Such an approach allows you to extend functionality without changing the base class. A wrapper can be applied to any class, including an [entity](#entity) or a [service](#service).
+
+### Saver
+
+This is a [service](#service) that conceals the saving process from the business logic. It works in the same way as [repository](#repository), but for writing the data
