@@ -1,5 +1,9 @@
 {
   "compilerOptions": {
+    "types": [
+      "jest",
+      "node"
+    ],
     "module": "nodenext",
     "moduleResolution": "nodenext",
     "resolvePackageJsonExports": true,
@@ -19,6 +23,17 @@
     "forceConsistentCasingInFileNames": true,
     "noImplicitAny": false,
     "strictBindCallApply": false,
-    "noFallthroughCasesInSwitch": false
+    "noFallthroughCasesInSwitch": false,
+    "paths": {
+      "@domain/*": [
+        "./src/domains/*"
+      ],
+      "@infrastructure/*": [
+        "./src/infrastructure/*"
+      ],
+      "@repository/*": [
+        "./src/repositories/*"
+      ]
+    }
   }
 }
