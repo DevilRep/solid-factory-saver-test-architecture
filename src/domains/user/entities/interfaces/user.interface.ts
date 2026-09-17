@@ -1,4 +1,4 @@
-export interface IUser {
+export interface IReadonlyUser {
     readonly id: number;
     readonly email: string;
 }

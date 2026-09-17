@@ -2,7 +2,7 @@ import { Controller, Get, Inject, Param } from "@nestjs/common";
 
 import type { IUserFactory } from "@domain/user";
 
-import { UserDto } from "./dto/user.dto";
+import { UserInfoDto } from "./dto/user.info.dto";
 
 @Controller('user')
 export class UserController {
@@ -12,7 +12,7 @@ export class UserController {
     ) { }
 
     @Get(':id')
-    public async getUserById(@Param('id') id: number): Promise<UserDto> {
-        return new UserDto(await this.userFactory.create(+id));
+    public async getUserById(@Param('id') id: number): Promise<UserInfoDto> {
+        return new UserInfoDto(await this.userFactory.create(+id));
     }
 }
