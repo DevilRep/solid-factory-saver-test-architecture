@@ -34,3 +34,5 @@ So there are three main steps to add a new field:
 1. Create new interfaces: for the entity, for the raw repository data, for the repository itself, and for the factory
 2. Create implementations for the repository and for a new entity's constructor
 3. Create a new factory that uses the new repository and the entity's constructor from the previous step
+
+For repository implementation, the same class could be used until it's small enough - consider having a few different repositories for the entity if there are too many functions, or combine them if they have almost the same result.
