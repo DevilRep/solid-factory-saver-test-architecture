@@ -32,5 +32,5 @@ This is the simplest use case - just get the data from storage and return it. Th
 This one is a little harder because it shows how the code should be modified over time. From the interface's point of view, a new interface should be created with the new field. That also means there should be created a new repository (or a new method for the existing one) should be created to get the value for this field from storage, and a new factory to pass this value to the new entity's constructor. From the implementation point of view, a new field should be added by updating the existing class or creating a new wrapper. The second approach is less ideal because it adds too much overhead for a simple field that is strictly meant for data storage.
 So there are three main steps to add a new field:
 1. Create new interfaces: for the entity, for the raw repository data, for the repository itself, and for the factory
-2. Create implementations for the repository and add a new entity's constructor
+2. Create implementations for the repository and for a new entity's constructor
 3. Create a new factory that uses the new repository and the entity's constructor from the previous step
