@@ -19,14 +19,18 @@ This list outlines challenges and solutions to help you understand how this arch
 14. Transactional updating
 
 ## Reading the data
-This is the simplest use case - just get the data from the storage and return it. This process includes the following steps:
+This is the simplest use case - just get the data from storage and return it. This process includes the following steps:
 
 1. The controller gets the data that was passed by HTTP
-2. The factory gets the raw data from the storage using the specific method
+2. The factory gets the raw data from storage using the specific method
 3. The factory creates a new entity object of the specific class using the raw data from the previous step
 4. The controller uses the entity object from the previous step to create a DTO object and return it via HTTP
 
 [Here](https://github.com/search?q=repo%3ADevilRep%2Fsolid-factory-saver-test-architecture++e1&type=commits) you can find commits that show this process
 
 ## Adding a new separate optional field
-Comming soon
+This one is a little harder because it shows how the code should be modified over time. From the interface's point of view, a new interface should be created with the new field. That also means there should be created a new repository (or a new method for the existing one) should be created to get the value for this field from storage, and a new factory to pass this value to the new entity's constructor. From the implementation point of view, a new field should be added by updating the existing class or creating a new wrapper. The second approach is less ideal because it adds too much overhead for a simple field that is strictly meant for data storage.
+So there are three main steps to add a new field:
+1. Create new interfaces: for the entity, for the raw repository data, for the repository itself, and for the factory
+2. Create implementations for the repository and add a new entity's constructor
+3. Create a new factory that uses the new repository and the entity's constructor from the previous step
