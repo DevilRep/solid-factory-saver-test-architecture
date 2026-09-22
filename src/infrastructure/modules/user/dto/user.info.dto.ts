@@ -1,7 +1,7 @@
-import { IUserInfoDtoData } from "../interfaces/user.info.dto.data";
+import { IReadableUser } from "@domain/user";
 
 export class UserInfoDto {
-    constructor(user: IUserInfoDtoData) {
+    constructor(user: IReadableUser) {
         this.email = user.email;
     }
 
