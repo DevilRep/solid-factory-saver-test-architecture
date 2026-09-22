@@ -37,7 +37,7 @@ So there are three main steps to add a new field:
 4. Create a new route that will use the factory from the previous step, dto and set up all necessary dependencies
 
 For repository implementation, the same class could be used until it's small enough - consider having a few different repositories for the entity if there are too many functions, or combine them if they have almost the same result.
-That's also relevant for the factory.
+That's also relevant for the factory, but it's better to group methods for it by use cases
 
 [Here](https://github.com/search?q=repo%3ADevilRep%2Fsolid-factory-saver-test-architecture+e2&type=commits&s=committer-date&o=desc) you can find commits that show this process
 
