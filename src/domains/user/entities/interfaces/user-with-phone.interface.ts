@@ -1,5 +1,5 @@
 import { IReadableUser } from "./user.interface";
 
-export interface IUserWithPhone extends IReadableUser {
+export interface IReadableUserWithPhone extends IReadableUser {
     readonly phone: string;
 }
