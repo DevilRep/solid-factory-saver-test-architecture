@@ -1,12 +1,16 @@
 import { IUserRepositoryData } from "../repositories/interfaces/user.repository.interface";
-import { IReadableUser } from "./interfaces/user.interface";
+import { IUserWithPhoneRepositoryData } from "../repositories/interfaces/user-with-phone.interface";
+import { IReadableUserWithPhone } from "./interfaces/user-with-phone.interface";
 
-export class User implements IReadableUser {
+export class User implements IReadableUserWithPhone {
     public readonly id: number
     public readonly email: string
+    public readonly phone: string
 
-    constructor(data: IUserRepositoryData) {
+    constructor(data: IUserRepositoryData | IUserWithPhoneRepositoryData) {
         this.id = data.id;
         this.email = data.email;
+
+        this.phone = 'phone' in data ? data.phone : '';
     }
 }
