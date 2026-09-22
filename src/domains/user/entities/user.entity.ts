@@ -1,5 +1,5 @@
 import { IUserRepositoryData } from "../repositories/interfaces/user.repository.interface";
-import { IUserWithPhoneRepositoryData } from "../repositories/interfaces/user-with-phone.interface";
+import { IUserWithPhoneRepositoryData } from "../repositories/interfaces/user-with-phone.repository.interface";
 import { IReadableUserWithPhone } from "./interfaces/user-with-phone.interface";
 
 export class User implements IReadableUserWithPhone {
