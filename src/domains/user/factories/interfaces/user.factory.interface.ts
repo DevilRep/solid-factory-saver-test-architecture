@@ -1,5 +1,5 @@
-import { IReadonlyUser } from "@domain/user/entities/interfaces/user.interface";
+import { IReadableUser } from "@domain/user/entities/interfaces/user.interface";
 
 export interface IUserFactory {
-    create(id: number): Promise<IReadonlyUser>;
+    create(id: number): Promise<IReadableUser>;
 }

@@ -1,7 +1,7 @@
 import { IUserRepositoryData } from "../repositories/interfaces/user.repository.interface";
-import { IReadonlyUser } from "./interfaces/user.interface";
+import { IReadableUser } from "./interfaces/user.interface";
 
-export class User implements IReadonlyUser {
+export class User implements IReadableUser {
     public readonly id: number
     public readonly email: string
 
