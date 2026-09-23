@@ -30,11 +30,11 @@ This is the simplest use case - just get the data from storage and return it. Th
 
 ## Adding a new separate field for one place
 This one is a little harder because it shows how the code should be modified over time. Also this case shows the situation when there is necessary to add a new separate endpoint with more data. From the interface's point of view, a new interface should be created with the new field. That also means there should be created a new repository (or a new method for the existing one) should be created to get the value for this field from storage, and a new factory to pass this value to the new entity's constructor. From the implementation point of view, a new field should be added by updating the existing class or creating a new wrapper. The second approach is less ideal because it adds too much overhead for a simple field that is strictly meant for data storage.
-So there are three main steps to add a new field:
-1. Create new interfaces: for the entity, for the raw repository data, for the repository itself, and for the factory
-2. Create implementations for a new entity's constructor and a for the factory that will use it with the repositroy interface from the previous step
-3. Create an implementation for the repository
-4. Create a new route that will use the factory from the previous step, dto and set up all necessary dependencies
+So there are a few steps to add a new field:
+1. Create new interfaces: for the entity, for the raw repository data, for the repository itself, and for the factory.
+2. Create implementations for a new entity's constructor and a for the factory that will use it with the repositroy interface from the previous step.
+3. Create an implementation for the repository.
+4. Create a new route that will use the factory from the previous step, dto and set up all necessary dependencies.
 
 For repository implementation, the same class could be used until it's small enough - consider having a few different repositories for the entity if there are too many functions, or combine them if they have almost the same result.
 That's also relevant for the factory, but it's better to group methods for it by use cases
@@ -42,4 +42,12 @@ That's also relevant for the factory, but it's better to group methods for it by
 [Here](https://github.com/search?q=repo%3ADevilRep%2Fsolid-factory-saver-test-architecture+e2&type=commits&s=committer-date&o=desc) you can find commits that show this process
 
 ## Adding a new separate field for all places
-Coming soon
+First of all, it's related only to a specific interface. Second, this is a very specific case because it requires updating all existing code (that uses this interface) and adding a new field smoothly, without breaking changes and without changing the old code. Because we need to support both codebases (with and without the new field), it's better to set a default value for this field and return it for the entity when using the old code, while the new code uses the real value.
+This approach is acceptable only when the field is required in all places; otherwise, consider using [the previous approach](#adding-a-new-separate-field-for-one-place).
+
+There are a few steps to add a new field:
+1. Update the entity interface: the field must be required. Update the raw repository data interface: the field must be optional. Update the implementation for the entity: it should set the default value if there is no value in the raw repository data.
+2. Create new implementations for all repositories that use this interface
+3. Update dependencies
+
+[Here](https://github.com/search?q=repo%3ADevilRep%2Fsolid-factory-saver-test-architecture+e3&type=commits&s=committer-date&o=desc) you can find commits that show this process
