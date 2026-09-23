@@ -2,7 +2,7 @@ import { IUserRepository, IUserWithPhoneRepository } from "@domain/user";
 
 import { UserMemoryRepository } from "./user.memory.repository";
 
-export class UserMemoryRepository2 extends UserMemoryRepository implements IUserRepository, IUserWithPhoneRepository {
+export class UserV2MemoryRepository extends UserMemoryRepository implements IUserRepository, IUserWithPhoneRepository {
     constructor() {
         super()
         this.users = [{
