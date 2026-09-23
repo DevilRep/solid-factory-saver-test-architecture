@@ -58,10 +58,11 @@ This is an interesting case because it also shows how to work with entity wrappe
 There are a few steps to do this:
 1. Create a new interface that allows updating the field.
 2. Create a new interface for the entity wrapper to update the field.
-3. Create a new interface for a saver - it should have a function that gets the raw data and returns nothing.
+3. Create a new interface for a saver - it should have a function that gets the raw data and returns nothing. Also, a new interface should be created for the raw data
 4. Create an implementation of the entity wrapper that updates the values. The method updates the field and runs the saver's method to update the data in the storage. It should have a few parameters for the constructor, including:
     * an object of a class that implements the interface for updating fields (from step 1)
     * a link to the saver
-5. Create a factory that works with the repository and the saver; pass both as constructor parameters. The factory returns an object that implements the entity wrapper interface and **should not allow direct field updates**.
+5. Create an interface for a factory
+6. Create a factory that works with the repository and the saver; pass both as constructor parameters. The factory returns an object that implements the entity wrapper interface and **should not allow direct field updates**.
 
 [Here](https://github.com/search?q=repo%3ADevilRep%2Fsolid-factory-saver-test-architecture+e4&type=commits&s=committer-date&o=desc) you can find commits that show this process
