@@ -6,7 +6,7 @@ This list outlines challenges and solutions to help you understand how this arch
 1. [Only reading the data from storage (the simplest code) - commits with the scope e1 (example 1)](#reading-the-data)
 2. [Code lifecycle: adding a new separate field for one place](#adding-a-new-separate-field-for-one-place)
 3. [Code lifecycle: adding a new separate field for all places](#adding-a-new-separate-field-for-all-places)
-4. Updating the required fields (usage of a [saver](/docs/terms.md#saver))
+4. [Updating the required fields (usage of a saver)](#updating-the-required-fields)
 5. Updating the optional fields
 6. Code lifecycle: adding a new related field
 7. Code lifecycle: switch from the simple field to the complex one
@@ -51,3 +51,17 @@ There are a few steps to add a new field:
 3. Update dependencies and dto
 
 [Here](https://github.com/search?q=repo%3ADevilRep%2Fsolid-factory-saver-test-architecture+e3&type=commits&s=committer-date&o=desc) you can find commits that show this process
+
+## Updating the required fields
+This is an interesting case because it also shows how to work with entity wrappers.
+
+There are a few steps to do this:
+1. Create a new interface that allows updating the field.
+2. Create a new interface for the entity wrapper to update the field.
+3. Create a new interface for a saver - it should have a function that gets the raw data and returns nothing.
+4. Create an implementation of the entity wrapper that updates the values. The method updates the field and runs the saver's method to update the data in the storage. It should have a few parameters for the constructor, including:
+    * an object of a class that implements the interface for updating fields (from step 1)
+    * a link to the saver
+5. Create a factory that works with the repository and the saver; pass both as constructor parameters. The factory returns an object that implements the entity wrapper interface and **should not allow direct field updates**.
+
+[Here](https://github.com/search?q=repo%3ADevilRep%2Fsolid-factory-saver-test-architecture+e4&type=commits&s=committer-date&o=desc) you can find commits that show this process
