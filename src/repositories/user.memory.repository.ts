@@ -1,7 +1,7 @@
 import { IUserRepository, IUserRepositoryData, IUserWithPhoneRepository, IUserWithPhoneRepositoryData } from "@domain/user";
 
 export class UserMemoryRepository implements IUserRepository, IUserWithPhoneRepository {
-    private users: (IUserRepositoryData | IUserWithPhoneRepositoryData)[] = [];
+    protected users: (IUserRepositoryData | IUserWithPhoneRepositoryData)[] = [];
 
     constructor() {
         this.users = [{
