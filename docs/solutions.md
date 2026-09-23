@@ -48,6 +48,6 @@ This approach is acceptable only when the field is required in all places; other
 There are a few steps to add a new field:
 1. Update the entity interface: the field must be required. Update the raw repository data interface: the field must be optional. Update the implementation for the entity: it should set the default value if there is no value in the raw repository data.
 2. Create new implementations for all repositories that use this interface
-3. Update dependencies
+3. Update dependencies and dto
 
 [Here](https://github.com/search?q=repo%3ADevilRep%2Fsolid-factory-saver-test-architecture+e3&type=commits&s=committer-date&o=desc) you can find commits that show this process
