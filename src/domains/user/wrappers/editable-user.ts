@@ -28,6 +28,7 @@ export class EditableUser implements IEditableUser {
         this.user.name = data.name
 
         await this.saver.updateUserData({
+            id: this.user.id,
             name: this.user.name
         })
     }
