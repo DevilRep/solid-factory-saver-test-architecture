@@ -1,7 +1,14 @@
-import { IUserRepository, IUserRepositoryData, IUserWithPhoneRepository, IUserWithPhoneRepositoryData } from "@domain/user";
+import { IUserRepository, IUserRepositoryData, IUserSaver, IUserSaverRawData, IUserWithPhoneRepository, IUserWithPhoneRepositoryData } from "@domain/user";
 
-export class UserMemoryRepository implements IUserRepository, IUserWithPhoneRepository {
-    protected users: (IUserRepositoryData | IUserWithPhoneRepositoryData)[] = [];
+interface IUserMemoryRepositoryData {
+    readonly id: number;
+    readonly email: string;
+    readonly phone?: string;
+    name?: string;
+}
+
+export class UserMemoryRepository implements IUserRepository, IUserWithPhoneRepository, IUserSaver {
+    protected users: IUserMemoryRepositoryData[] = []
 
     constructor() {
         this.users = [{
@@ -31,5 +38,13 @@ export class UserMemoryRepository implements IUserRepository, IUserWithPhoneRepo
             ...userData,
             phone: (userData as IUserWithPhoneRepositoryData).phone || ""
         });
+    }
+
+    async updateUserData({ id, name }: IUserSaverRawData): Promise<void> {
+        const userIndex = this.users.findIndex(user => user.id === id);
+        if (userIndex === -1) {
+            throw new Error(`User with id ${id} not found`);
+        }
+        this.users[userIndex].name = name;
     }
 }
