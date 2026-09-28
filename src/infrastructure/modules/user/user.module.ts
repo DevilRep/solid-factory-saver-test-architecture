@@ -2,8 +2,11 @@ import { Module } from "@nestjs/common";
 
 import { UserController } from "./user.controller";
 import { UserInjectableFactory } from "./user.injectable.factory";
-import { UserMemoryInjectableRepository } from "./user.memory.injectable.repository";
 import { UserWithPhoneInjectableFactory } from "./user-with-phone.injectable.factory";
+import { EditableUserInjectableFactory } from "./editable-user.injectable.factory";
+import { UserMemoryInjectableRepository } from "./user.memory.injectable.repository";
+
+const repo = new UserMemoryInjectableRepository()
 
 @Module({
     controllers: [UserController],
@@ -17,13 +20,21 @@ import { UserWithPhoneInjectableFactory } from "./user-with-phone.injectable.fac
             useClass: UserWithPhoneInjectableFactory,
         },
         {
+            provide: 'IEditableUserFactory',
+            useClass: EditableUserInjectableFactory
+        },
+        {
             provide: 'IUserRepository',
-            useClass: UserMemoryInjectableRepository,
+            useValue: repo,
         },
         {
             provide: 'IUserWithPhoneRepository',
-            useClass: UserMemoryInjectableRepository,
+            useValue: repo,
         },
+        {
+            provide: 'IUserSaver',
+            useValue: repo,
+        }
     ],
 })
 export class UserModule { }
