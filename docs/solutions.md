@@ -66,6 +66,6 @@ There are a few steps to do this:
     * a link to the saver
 7. Create an implementation for the factory that works with the repository and the saver; pass both as constructor parameters. The factory returns an object that implements the entity wrapper interface and **should not allow direct field updates**.
 8. Create an implementation for the saver (it could be added to the repository implementation or in a new class)
-9. Create a new constoller's method, dto and add all necessary relationships
+9. Create a new constoller's method, dto and add all necessary dependencies
 
 [Here](https://github.com/search?q=repo%3ADevilRep%2Fsolid-factory-saver-test-architecture+e4&type=commits&s=committer-date&o=desc) you can find commits that show this process
