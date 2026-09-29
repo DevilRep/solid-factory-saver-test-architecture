@@ -7,7 +7,7 @@ This list outlines challenges and solutions to help you understand how this arch
 2. [Code lifecycle: adding a new separate field for one place](#adding-a-new-separate-field-for-one-place)
 3. [Code lifecycle: adding a new separate field for all places](#adding-a-new-separate-field-for-all-places)
 4. [Updating the required fields (usage of a saver)](#updating-the-required-fields)
-5. Updating the optional fields
+5. [Updating the optional fields](#updating-the-optional-fields)
 6. Code lifecycle: adding a new related field
 7. Code lifecycle: switch from the simple field to the complex one
 8. A business validation rule for the complex field
@@ -69,3 +69,9 @@ There are a few steps to do this:
 9. Create a new constoller's method, dto and add all necessary dependencies
 
 [Here](https://github.com/search?q=repo%3ADevilRep%2Fsolid-factory-saver-test-architecture+e4&type=commits&s=committer-date&o=desc) you can find commits that show this process
+
+## Updating the optional fields
+
+This case is pretty similar to [the previous one](#updating-the-required-fields).
+
+[Here](https://github.com/search?q=repo%3ADevilRep%2Fsolid-factory-saver-test-architecture+e5&type=commits&s=committer-date&o=desc) you can find commits that show this process
