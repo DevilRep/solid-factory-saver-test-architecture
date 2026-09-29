@@ -57,7 +57,7 @@ This is an interesting case because it also shows how to work with entity wrappe
 
 There are a few steps to do this:
 1. Create a new interface that allows updating the field.
-2. Create a new interface for the entity wrapper to update the field.
+2. Create new interfaces for the entity wrapper to update the field: one for the wrapper itself and another one for the data that the wrapper expects
 3. Create a new interface for a saver - it should have a function that gets the raw data and returns nothing. Also, a new interface should be created for the raw data
 4. Create an interface for a factory
 5. Update entity's implementation to support the interface for the updating fields from the step 1
