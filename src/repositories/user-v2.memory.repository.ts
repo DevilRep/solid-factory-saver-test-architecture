@@ -1,8 +1,8 @@
-import { IUserRepository, IUserWithPhoneRepository } from "@domain/user";
+import { IUserRepository, IUserSaver, IUserSaverRawData, IUserWithPhoneRepository } from "@domain/user";
 
 import { UserMemoryRepository } from "./user.memory.repository";
 
-export class UserV2MemoryRepository extends UserMemoryRepository implements IUserRepository, IUserWithPhoneRepository {
+export class UserV2MemoryRepository extends UserMemoryRepository implements IUserRepository, IUserWithPhoneRepository, IUserSaver {
     constructor() {
         super()
         this.users = [{
@@ -15,5 +15,14 @@ export class UserV2MemoryRepository extends UserMemoryRepository implements IUse
             phone: "098-765-4321",
             name: "User Two"
         }]
+    }
+
+    async updateUserData({ id, name, phone }: IUserSaverRawData): Promise<void> {
+        const userIndex = this.users.findIndex(user => user.id === id);
+        if (userIndex === -1) {
+            throw new Error(`User with id ${id} not found`);
+        }
+        this.users[userIndex].name = name;
+        this.users[userIndex].phone = phone
     }
 }

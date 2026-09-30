@@ -3,7 +3,7 @@ import { IUserRepository, IUserRepositoryData, IUserSaver, IUserSaverRawData, IU
 interface IUserMemoryRepositoryData {
     readonly id: number;
     readonly email: string;
-    readonly phone?: string;
+    phone?: string;
     name?: string;
 }
 
