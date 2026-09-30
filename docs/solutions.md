@@ -8,7 +8,7 @@ This list outlines challenges and solutions to help you understand how this arch
 3. [Code lifecycle: adding a new separate field for all places](#adding-a-new-separate-field-for-all-places)
 4. [Updating the required fields (usage of a saver)](#updating-the-required-fields)
 5. [Updating the optional fields](#updating-the-optional-fields)
-6. Code lifecycle: adding a new related field
+6. [Code lifecycle: adding a new related field](#adding-a-new-related-field)
 7. Code lifecycle: switch from the simple field to the complex one
 8. A business validation rule for the complex field
 9. Code lifecycle: removing the field
@@ -75,3 +75,10 @@ There are a few steps to do this:
 This case is pretty similar to [the previous one](#updating-the-required-fields).
 
 [Here](https://github.com/search?q=repo%3ADevilRep%2Fsolid-factory-saver-test-architecture+e5&type=commits&s=committer-date&o=desc) you can find commits that show this process
+
+## Adding a new related field
+This is a very interesting case: one field is related to another one, but only the first one is updatable. From the interface's point of view, there is nothing special - interfaces do not show such a relationship. It means new interfaces should be created in the same way as for any new read-only field. But from the implementation's point of view, a new entity class should be created instead of adding the field to the existing one, because updating the fields' values is related to each other.
+
+The steps are the same as for [updating the required fields](#updating-the-required-fields)
+
+[Here](https://github.com/search?q=repo%3ADevilRep%2Fsolid-factory-saver-test-architecture+e6&type=commits&s=committer-date&o=desc) you can find commits that show this process
