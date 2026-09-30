@@ -6,7 +6,7 @@ import { IWritableUser } from "./interfaces/writable-user.interface";
 export class User implements IReadableUserWithPhone, IWritableUser {
     public readonly id: number
     public readonly email: string
-    public readonly phone: string
+    public phone: string
     public name: string
 
     constructor(data: IUserRepositoryData | IUserWithPhoneRepositoryData) {
