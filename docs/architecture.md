@@ -14,6 +14,7 @@ The current architecture relies on the following design patterns and principles:
 - **Interfaces over implementations** - all function parameters and return types should be interfaces rather than concrete implementations
 - [**Entity Wrappers**](/docs/terms.md#wrapper) - the composition, where one object is wrapped around another. Each wrapper - or composition layer - handles only with one simple process at a time. This helps decouple different business processes so they can be added or removed separately, allowing the code to be built from small blocks.
 - **Thin interfaces** - interfaces of input and return data should contain as few fields as possible to cover the functionality. Such an approach helps to reuse the code across different classes.
+- **Strict implementation according to the business requirements** - all implementations should meet the business requirements and not allow anything that the business does not require. This means that if there is no update to a field, the entity must not allow such actions.
 - [**Repositories**](/docs/terms.md#repository) – decouple business logic from data storage and manage fetching the data required for request processing.
 - [**Savers**](/docs/terms.md#saver) – persist changes to storage, keeping this responsibility isolated from the business logic.
 - [**Factories**](/docs/terms.md#factory) – isolate complex model instantiation from the rest of the application, including business model method calls.
