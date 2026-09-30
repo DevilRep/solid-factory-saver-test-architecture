@@ -4,10 +4,13 @@ import { EditableUser } from "./editable-user";
 
 export class EditableUserWithUpdatingPhone extends EditableUser implements IEditableUser {
     async change({ name, phone }: IEditableUserData): Promise<void> {
+        this.user.name = name
         this.user.phone = phone || ''
 
-        await super.change({
-            name
+        await this.saver.updateUserData({
+            id: this.user.id,
+            name: this.user.name,
+            phone: this.user.phone
         })
     }
 }
