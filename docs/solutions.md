@@ -79,6 +79,6 @@ In this case, the approach is to [add a new separate field for all places](#add
 ## Adding a new related field
 This is a very interesting case: one field is related to another one, but only the first one is updatable. From the interface's point of view, there is nothing special - interfaces do not show such a relationship. It means new interfaces should be created in the same way as for any new read-only field. But from the implementation's point of view, a new entity class should be created instead of adding the field to the existing one, because updating the fields' values is related to each other.
 
-The steps are the same as for [updating the required fields](#updating-the-required-fields).
+The steps are the same as for [updating the optional fields](#updating-the-optional-fields).
 
 [Here](https://github.com/search?q=repo%3ADevilRep%2Fsolid-factory-saver-test-architecture+e6&type=commits&s=committer-date&o=desc) you can find commits that show this process.
