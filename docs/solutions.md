@@ -8,15 +8,14 @@ This list outlines challenges and solutions to help you understand how this arch
 3. [Code lifecycle: adding a new separate field for all places](#adding-a-new-separate-field-for-all-places).
 4. [Updating the required fields (usage of a saver)](#updating-the-required-fields).
 5. [Updating the optional fields](#updating-the-optional-fields).
-6. [Code lifecycle: adding a new related field](#adding-a-new-related-field).
-7. Code lifecycle: switch from the simple field to the complex one.
-8. A business validation rule for the complex field.
-9. Code lifecycle: removing the field.
-10. Auth process (additional separate action).
-11. Sign up.
-12. Checking access restrictions before reading the data (additional separate action).
-13. Saving changelogs while updating the data in the store (additional separate action)
-14. Transactional updating.
+6. Code lifecycle: switch from the simple field to the complex one.
+7. A business validation rule for the complex field.
+8. Code lifecycle: removing the field.
+9. Auth process (additional separate action).
+10. Sign up.
+11. Checking access restrictions before reading the data (additional separate action).
+12. Saving changelogs while updating the data in the store (additional separate action)
+13. Transactional updating.
 
 ## Reading the data
 This is the simplest use case - just get the data from storage and return it. This process includes the following steps:
@@ -79,6 +78,11 @@ In this case, the approach is to [add a new separate field for all places](#add
 ## Adding a new related field
 This is a very interesting case: one field is related to another one, but only the first one is updatable. From the interface's point of view, there is nothing special - interfaces do not show such a relationship. It means new interfaces should be created in the same way as for any new read-only field. But from the implementation's point of view, a new entity class should be created instead of adding the field to the existing one, because updating the fields' values is related to each other.
 
-The steps are the same as for [updating the optional fields](#updating-the-optional-fields).
+There are a few steps to add a new field:
+1. Create a new entity interface with the related field.
+2. Update the saver and the repository interfaces: the related field must be optional
+3. Update the implementation for the entity: it should set the default value if there is no value in the raw repository data.
+4. Create new implementations for the repository and for the saver.
+5. Update dependencies and dto.
 
 [Here](https://github.com/search?q=repo%3ADevilRep%2Fsolid-factory-saver-test-architecture+e6&type=commits&s=committer-date&o=desc) you can find commits that show this process.
