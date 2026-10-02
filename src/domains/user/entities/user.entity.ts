@@ -38,7 +38,7 @@ export class User implements IReadableUserWithPhone, IWritableUser, IReadableUse
         if (data.emailVO) {
             this.emailVO = data.emailVO
         } else {
-            this.emailVO = data.email ? new Email(data.email) : this.emailVO = new Email('')
+            this.emailVO = data.email ? new Email(data.email) : new Email('')
         }
     }
 }
