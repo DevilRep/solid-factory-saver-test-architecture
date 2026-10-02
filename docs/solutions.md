@@ -92,7 +92,7 @@ There are also two different scenarios:
 
 There are a few steps to add a new field for the first scenario:
 1. Create a value object class.
-2. Create a new entity interface with a new value object field.
+2. Create new entity interfaces with a new value object field: one for the read and another one - for updating the field.
 3. Update the entity implementation using a value object instead of a primitive value. Old getters/setters should be updated as well and use the value object. The constructor should work with both types of data for compatibility. The old field can be marked as deprecated.
 4. Now the old code works with the new field, but using the old interfaces. The next step is updating each workflow to use only the new field directly with the new interface from step 2. This action should be done one by one, one endpoint at a time.
 5. When all workflows are updated, the old deprecated field can be removed completely from the implementation with the old interface that contains it.
