@@ -1,6 +1,7 @@
-import { Email } from "../../object-values/email";
-import { IReadableUser } from "./user.interface";
+import { Email } from "../../object-values/email"
 
-export interface IReadableUserWithEmail extends IReadableUser {
-    readonly emailVO: Email;
+export interface IReadableUserWithEmail {
+    readonly id: number
+    readonly name: string
+    readonly emailVO: Email
 }
