@@ -8,8 +8,8 @@ This list outlines challenges and solutions to help you understand how this arch
 3. [Code lifecycle: adding a new separate field for all places](#adding-a-new-separate-field-for-all-places).
 4. [Updating the required fields (usage of a saver)](#updating-the-required-fields).
 5. [Updating the optional fields](#updating-the-optional-fields).
-6. Code lifecycle: switch from the simple field to the complex one.
-7. A business validation rule for the complex field.
+6. [Code lifecycle: switch from the simple field to the complex one](#switch-from-the-simple-field-to-the-complex-one).
+7. [A business validation rule](#a-business-validation-rule).
 8. Code lifecycle: removing the field.
 9. Auth process (additional separate action).
 10. Sign up.
@@ -74,3 +74,34 @@ There are a few steps to do this:
 In this case, the approach is to [add a new separate field for all places](#adding-a-new-separate-field-for-all-places) to avoid creating new interfaces. But the steps are the same as for [the previous one](#updating-the-required-fields).
 
 [Here](https://github.com/search?q=repo%3ADevilRep%2Fsolid-factory-saver-test-architecture+e5&type=commits&s=committer-date&o=desc) you can find commits that show this process.
+
+## Switch from the simple field to the complex one (value object)
+This case shows how to switch from the primitive value to the value object. There are two possible cases:
+1. switching updates the storage logic, but the value still can be converted to the same primitive (API response will not change).
+2. switching extends the field and there is no option to return the value in the same primitive format (API response will change).
+
+The first option allows to save compatibility by replacing the old field with the calculated one in the entity implementation.
+
+The second option is more specific, because it leads to possible breaking changes. To avoid this a new separate logic should be created, including a new API endpoint. This solution can bring some logical issues while the old API endpoint is available, but they have to be resolved based on the business requirements.
+
+This example shows only the first option, because such situations are more common (like [adding business requirements](#a-business-validation-rule)) and also because the second option should use [this approach].(#adding-a-new-separate-field-for-one-place)
+
+There are also two different scenarious:
+1. a new value object class stores the data in the same way as the old field
+2. a new value object class stores the data in another way (for example, it has two different fields intead of one)
+
+There are a few steps to add a new field for the first scenario:
+1. Create a value object class.
+2. Create a new entity interface with a new value object field.
+3. Update the entity implementation using value object instead of primitive value. Old getters/setters should be updated as well and use value object. The constructor should work with both types of the data for the compability. The old field can be marked as depricated.
+4. Now the old code works with the new field, but using the old interfaces. Next step is updating each workflow to use only the new field directly with the new interface from step 2. This action should be done one by one, one endpoint at a time.
+5. When all workflows are updated, the old deprecated field can be removed complitely from the implementation with the old interface that contains it.
+
+[Here](https://github.com/search?q=repo%3ADevilRep%2Fsolid-factory-saver-test-architecture+e6a&type=commits&s=committer-date&o=desc) you can find commits that show this process.
+
+The second scenario have to leave the old name of the field in the dto for compatibility (for all cases). But other things are the same. The compability code for the updating can be moved to the controller after switching to the new code in the domain layer. As for responses the field can be defined as calculated in the dto using the new one. 
+
+[Here](https://github.com/search?q=repo%3ADevilRep%2Fsolid-factory-saver-test-architecture+e6b&type=commits&s=committer-date&o=desc) you can find commits that show this process.
+
+## A business validation rule
+Coming soon
