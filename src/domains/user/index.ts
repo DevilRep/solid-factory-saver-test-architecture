@@ -5,6 +5,7 @@ export * from "./entities/interfaces/user-with-email.interface";
 export * from "./factories/interfaces/user.factory.interface";
 export * from "./factories/interfaces/user-with-phone.factory.interface";
 export * from "./factories/interfaces/editable-user.factory.interface";
+export * from "./factories/interfaces/user-with-email.factory.interface"
 
 export * from "./factories/user.factory";
 export * from "./factories/user-with-phone.factory";
