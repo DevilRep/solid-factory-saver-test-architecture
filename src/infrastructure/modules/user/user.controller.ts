@@ -3,7 +3,7 @@ import { Body, Controller, Get, Inject, Param, Put } from "@nestjs/common";
 import type { IEditableUserFactory, IUserFactory, IUserWithPhoneFactory } from "@domain/user";
 
 import { UserInfoDto } from "./dto/user.info.dto";
-import { UserWithPhoneDto } from "./dto/user.-with-phone.info.dto";
+import { UserWithPhoneDto } from "./dto/user-with-phone.info.dto";
 import { EditableUserDataDto } from "./dto/editable-user-data.dto";
 
 @Controller('user')

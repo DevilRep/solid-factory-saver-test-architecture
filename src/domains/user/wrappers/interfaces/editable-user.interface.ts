@@ -1,4 +1,4 @@
-import { IReadableUserWithPhone } from "@domain/user";
+import { IReadableUserWithPhone } from "../../entities/interfaces/user-with-phone.interface";
 
 export interface IEditableUserData {
     readonly name: string
