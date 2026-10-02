@@ -1,10 +1,11 @@
 import { Body, Controller, Get, Inject, Param, Put } from "@nestjs/common";
 
-import type { IEditableUserFactory, IUserFactory, IUserWithPhoneFactory } from "@domain/user";
+import type { IEditableUserFactory, IUserFactory, IUserWithEmailFactory, IUserWithPhoneFactory } from "@domain/user";
 
 import { UserInfoDto } from "./dto/user.info.dto";
-import { UserWithPhoneDto } from "./dto/user-with-phone.info.dto";
+import { UserWithPhoneDto } from "./dto/user.-with-phone.info.dto";
 import { EditableUserDataDto } from "./dto/editable-user-data.dto";
+import { UserWithEmailDto } from "./dto/user-with-email.dto";
 
 @Controller('user')
 export class UserController {
@@ -16,12 +17,22 @@ export class UserController {
         private readonly userWithPhoneFactory: IUserWithPhoneFactory,
 
         @Inject('IEditableUserFactory')
-        private readonly editableUserFactory: IEditableUserFactory
+        private readonly editableUserFactory: IEditableUserFactory,
+
+        @Inject('IUserWithEmailFactory')
+        private readonly userWithEmailFactory: IUserWithEmailFactory
     ) { }
 
-    @Get(':id')
+    /**
+     * @deprecated
+     */
     public async getUserById(@Param('id') id: number): Promise<UserInfoDto> {
         return new UserInfoDto(await this.userFactory.create(+id));
+    }
+
+    @Get(':id')
+    public async getUserWithEmailById(@Param('id') id: number): Promise<UserWithEmailDto> {
+        return new UserWithEmailDto(await this.userWithEmailFactory.createUserWithEmail(+id));
     }
 
     @Get('with-phone/:id')

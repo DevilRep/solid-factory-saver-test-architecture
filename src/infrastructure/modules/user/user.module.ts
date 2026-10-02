@@ -5,6 +5,7 @@ import { UserInjectableFactory } from "./user.injectable.factory";
 import { UserWithPhoneInjectableFactory } from "./user-with-phone.injectable.factory";
 import { EditableUserInjectableFactory } from "./editable-user.injectable.factory";
 import { UserMemoryInjectableRepository } from "./user.memory.injectable.repository";
+import { UserWithEmailInjectableFactory } from "./user-with-email.injectable.factory";
 
 const repo = new UserMemoryInjectableRepository()
 
@@ -24,6 +25,11 @@ const repo = new UserMemoryInjectableRepository()
             useClass: EditableUserInjectableFactory
         },
         {
+            provide: 'IUserWithEmailFactory',
+            useClass: UserWithEmailInjectableFactory
+        },
+
+        {
             provide: 'IUserRepository',
             useValue: repo,
         },
@@ -34,7 +40,7 @@ const repo = new UserMemoryInjectableRepository()
         {
             provide: 'IUserSaver',
             useValue: repo,
-        }
+        },
     ],
 })
 export class UserModule { }
