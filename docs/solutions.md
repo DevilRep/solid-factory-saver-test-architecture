@@ -76,30 +76,30 @@ In this case, the approach is to [add a new separate field for all places](#add
 [Here](https://github.com/search?q=repo%3ADevilRep%2Fsolid-factory-saver-test-architecture+e5&type=commits&s=committer-date&o=desc) you can find commits that show this process.
 
 ## Switch from the simple field to the complex one (value object)
-This case shows how to switch from the primitive value to the value object. There are two possible cases:
-1. switching updates the storage logic, but the value still can be converted to the same primitive (API response will not change).
-2. switching extends the field and there is no option to return the value in the same primitive format (API response will change).
 
-The first option allows to save compatibility by replacing the old field with the calculated one in the entity implementation.
+This case shows how to switch from a primitive value to a value object. There are two possible cases:
+1. Switching updates the storage logic, but the value can still be converted to the same primitive (API response will not change).
+2. Switching extends the field, and there is no option to return the value in the same primitive format (API response will change).
 
-The second option is more specific, because it leads to possible breaking changes. To avoid this a new separate logic should be created, including a new API endpoint. This solution can bring some logical issues while the old API endpoint is available, but they have to be resolved based on the business requirements.
+The first option allows saving compatibility by replacing the old field with the calculated one in the entity implementation.
 
-This example shows only the first option, because such situations are more common (like [adding business requirements](#a-business-validation-rule)) and also because the second option should use [this approach].(#adding-a-new-separate-field-for-one-place)
+The second option is more specific, because it leads to possible breaking changes. To avoid this, a new separate logic should be created, including a new API endpoint. This solution can bring some logical issues while the old API endpoint is available, but they have to be resolved based on the business requirements.
+This example shows only the first option, because such situations are more common (like adding business requirements) and also because the second option should use [this approach](#adding-a-new-separate-field-for-one-place).
 
-There are also two different scenarious:
-1. a new value object class stores the data in the same way as the old field
-2. a new value object class stores the data in another way (for example, it has two different fields intead of one)
+There are also two different scenarios:
+1. A new value object class stores the data in the same way as the old field
+2. A new value object class stores the data in another way (for example, it has two different fields instead of one)
 
 There are a few steps to add a new field for the first scenario:
 1. Create a value object class.
 2. Create a new entity interface with a new value object field.
-3. Update the entity implementation using value object instead of primitive value. Old getters/setters should be updated as well and use value object. The constructor should work with both types of the data for the compability. The old field can be marked as depricated.
-4. Now the old code works with the new field, but using the old interfaces. Next step is updating each workflow to use only the new field directly with the new interface from step 2. This action should be done one by one, one endpoint at a time.
-5. When all workflows are updated, the old deprecated field can be removed complitely from the implementation with the old interface that contains it.
+3. Update the entity implementation using a value object instead of a primitive value. Old getters/setters should be updated as well and use the value object. The constructor should work with both types of data for compatibility. The old field can be marked as deprecated.
+4. Now the old code works with the new field, but using the old interfaces. The next step is updating each workflow to use only the new field directly with the new interface from step 2. This action should be done one by one, one endpoint at a time.
+5. When all workflows are updated, the old deprecated field can be removed completely from the implementation with the old interface that contains it.
 
 [Here](https://github.com/search?q=repo%3ADevilRep%2Fsolid-factory-saver-test-architecture+e6a&type=commits&s=committer-date&o=desc) you can find commits that show this process.
 
-The second scenario have to leave the old name of the field in the dto for compatibility (for all cases). But other things are the same. The compability code for the updating can be moved to the controller after switching to the new code in the domain layer. As for responses the field can be defined as calculated in the dto using the new one. 
+The second scenario has to leave the old name of the field in the DTO for compatibility (for all cases). But other things are the same. The compatibility code for the update can be moved to the controller after switching to the new code in the domain layer. As for responses, the field can be defined as calculated in the DTO using the new one.
 
 [Here](https://github.com/search?q=repo%3ADevilRep%2Fsolid-factory-saver-test-architecture+e6b&type=commits&s=committer-date&o=desc) you can find commits that show this process.
 
