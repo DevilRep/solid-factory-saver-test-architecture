@@ -1,5 +1,6 @@
 export * from "./entities/interfaces/user.interface";
 export * from "./entities/interfaces/user-with-phone.interface";
+export * from "./entities/interfaces/user-with-email.interface";
 
 export * from "./factories/interfaces/user.factory.interface";
 export * from "./factories/interfaces/user-with-phone.factory.interface";
