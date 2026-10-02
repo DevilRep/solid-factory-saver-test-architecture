@@ -14,6 +14,7 @@ export * from "./factories/user-with-phone.factory";
 export * from "./factories/editable-user.factory";
 export * from "./factories/editable-user-with-updating-phone.factory"
 export * from "./factories/user-with-email.factory"
+export * from "./factories/user-with-email-and-phone.factory"
 
 export * from "./repositories/interfaces/user.repository.interface";
 export * from "./repositories/interfaces/user-with-phone.repository.interface";
