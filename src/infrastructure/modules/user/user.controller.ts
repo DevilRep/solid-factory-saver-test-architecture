@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Inject, Param, Put } from "@nestjs/common";
 
-import type { IEditableUserFactory, IUserFactory, IUserWithEmailAndPhoneFactory, IUserWithEmailFactory, IUserWithPhoneFactory } from "@domain/user";
+import type { IEditableUserFactory, IEditableUserWithEmailFactory, IUserFactory, IUserWithEmailAndPhoneFactory, IUserWithEmailFactory, IUserWithPhoneFactory } from "@domain/user";
 
 import { UserInfoDto } from "./dto/user.info.dto";
 import { UserWithPhoneDto } from "./dto/user.-with-phone.info.dto";
@@ -24,7 +24,10 @@ export class UserController {
         private readonly userWithEmailFactory: IUserWithEmailFactory,
 
         @Inject('IUserWithEmailAndPhoneFactory')
-        private readonly userWithEmailAndPhoneFactory: IUserWithEmailAndPhoneFactory
+        private readonly userWithEmailAndPhoneFactory: IUserWithEmailAndPhoneFactory,
+
+        @Inject('IEditableUserWithEmailFactory')
+        private readonly editableUserWithEmailFactory: IEditableUserWithEmailFactory
     ) { }
 
     /**
@@ -52,7 +55,9 @@ export class UserController {
         return new UserWithEmailAndPhoneDto(await this.userWithEmailAndPhoneFactory.createUserWithEmailAndPhone(+id));
     }
 
-    @Put(':id')
+    /**
+     * @deprecated
+     */
     public async updateUserData(
         @Param('id') id: number,
         @Body() data: EditableUserDataDto
@@ -60,5 +65,15 @@ export class UserController {
         const user = await this.editableUserFactory.createUserForEdit(+id)
         await user.change(data)
         return new UserWithPhoneDto(user);
+    }
+
+    @Put(':id')
+    public async updateUserWithEmailData(
+        @Param('id') id: number,
+        @Body() data: EditableUserDataDto
+    ): Promise<UserWithEmailAndPhoneDto> {
+        const user = await this.editableUserWithEmailFactory.createUserForEdit(+id)
+        await user.change(data)
+        return new UserWithEmailAndPhoneDto(user);
     }
 }

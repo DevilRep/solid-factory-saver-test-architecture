@@ -7,6 +7,7 @@ import { EditableUserInjectableFactory } from "./editable-user.injectable.factor
 import { UserMemoryInjectableRepository } from "./user.memory.injectable.repository";
 import { UserWithEmailInjectableFactory } from "./user-with-email.injectable.factory";
 import { UserWithEmailAndPhoneInjectableFactory } from "./user-with-email-and-phone.injectable.factory";
+import { EditableUserWithEmailInjectableFactory } from "./editable-user-with-email.injectable.factory";
 
 const repo = new UserMemoryInjectableRepository()
 
@@ -32,6 +33,10 @@ const repo = new UserMemoryInjectableRepository()
         {
             provide: 'IUserWithEmailAndPhoneFactory',
             useClass: UserWithEmailAndPhoneInjectableFactory
+        },
+        {
+            provide: 'IEditableUserWithEmailFactory',
+            useClass: EditableUserWithEmailInjectableFactory
         },
 
         {
