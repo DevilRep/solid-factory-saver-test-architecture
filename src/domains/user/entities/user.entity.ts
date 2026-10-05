@@ -1,7 +1,6 @@
 import { IReadableUserWithPhone } from "./interfaces/user-with-phone.interface";
 import { IWritableUser } from "./interfaces/writable-user.interface";
 import { IReadableUserWithEmail } from "./interfaces/user-with-email.interface";
-import { IWritableUserWithEmail } from "./interfaces/writable-user-with-email.interface";
 import { Email } from "../object-values/email";
 
 interface IUserData {
@@ -13,7 +12,7 @@ interface IUserData {
     readonly emailVO?: Email
 }
 
-export class User implements IReadableUserWithPhone, IWritableUser, IReadableUserWithEmail, IWritableUserWithEmail {
+export class User implements IReadableUserWithPhone, IWritableUser, IReadableUserWithEmail {
     public readonly id: number
 
     /**
