@@ -1,10 +1,10 @@
 import { Module } from "@nestjs/common";
 
 import { UserController } from "./user.controller";
-import { UserMemoryInjectableRepository } from "./user.memory.injectable.repository";
-import { UserWithEmailInjectableFactory } from "./user-with-email.injectable.factory";
-import { UserWithEmailAndPhoneInjectableFactory } from "./user-with-email-and-phone.injectable.factory";
-import { EditableUserWithEmailInjectableFactory } from "./editable-user-with-email.injectable.factory";
+import { UserMemoryInjectableRepository } from "./dependencies/user.memory.injectable.repository";
+import { UserWithEmailInjectableFactory } from "./dependencies/user-with-email.injectable.factory";
+import { UserWithEmailAndPhoneInjectableFactory } from "./dependencies/user-with-email-and-phone.injectable.factory";
+import { EditableUserWithEmailInjectableFactory } from "./dependencies/editable-user-with-email.injectable.factory";
 
 const repo = new UserMemoryInjectableRepository()
 
