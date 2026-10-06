@@ -3,11 +3,10 @@ import { Email } from "../object-values/email";
 
 interface IUserData {
     readonly id: number;
-    readonly email?: string;
     readonly phone?: string;
     readonly name?: string;
 
-    readonly emailVO?: Email
+    readonly emailVO: Email
 }
 
 export class User implements IReadableUserWithEmail {
@@ -32,10 +31,6 @@ export class User implements IReadableUserWithEmail {
         this.phone = data.phone || ''
         this.name = data.name || ''
 
-        if (data.emailVO) {
-            this.emailVO = data.emailVO
-        } else {
-            this.emailVO = data.email ? new Email(data.email) : new Email('')
-        }
+        this.emailVO = data.emailVO
     }
 }
