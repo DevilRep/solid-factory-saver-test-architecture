@@ -8,7 +8,7 @@ This list outlines challenges and solutions to help you understand how this arch
 3. [Code lifecycle: adding a new separate field for all places](#adding-a-new-separate-field-for-all-places).
 4. [Updating the required fields (usage of a saver)](#updating-the-required-fields).
 5. [Updating the optional fields](#updating-the-optional-fields).
-6. [Code lifecycle: switch from the simple field to the complex one](#switch-from-the-simple-field-to-the-complex-one).
+6. [Code lifecycle: switch from the simple field to the complex one](#switch-from-the-simple-field-to-the-complex-one-value-object).
 7. [A business validation rule](#a-business-validation-rule).
 8. Code lifecycle: removing the field.
 9. Auth process (additional separate action).
