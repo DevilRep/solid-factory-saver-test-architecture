@@ -12,13 +12,6 @@ interface IUserData {
 export class User implements IReadableUserWithEmail {
     public readonly id: number
 
-    /**
-     * @deprecated use emailVO instead
-     */
-    get email(): string {
-        return this.emailVO.value
-    }
-
     public phone: string
 
     public name: string
