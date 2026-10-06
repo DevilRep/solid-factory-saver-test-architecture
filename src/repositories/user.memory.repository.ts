@@ -5,6 +5,8 @@ interface IUserMemoryRepositoryData {
     readonly email: string;
     phone?: string;
     name?: string;
+    firstName?: string;
+    lastName?: string;
 }
 
 export class UserMemoryRepository implements IUserRepository, IUserWithPhoneRepository, IUserSaver {
