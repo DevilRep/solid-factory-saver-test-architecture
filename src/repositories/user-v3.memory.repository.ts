@@ -7,12 +7,14 @@ export class UserV3MemoryRepository extends UserV2MemoryRepository implements IU
         this.users = [{
             id: 1,
             email: "user1@example.com",
+            name: "User One",
             firstName: "User",
             lastName: "One"
         }, {
             id: 2,
             email: "user2@example.com",
             phone: "098-765-4321",
+            name: "User Two",
             firstName: "User",
             lastName: "Two"
         }]
