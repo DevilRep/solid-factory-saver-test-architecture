@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common";
 
 import { IUserRepository, IUserWithPhoneRepository } from "@domain/user";
 
-import { UserV2MemoryRepository } from "@repository/user-v2.memory.repository";
+import { UserV3MemoryRepository } from "@repository/user-v3.memory.repository";
 
 @Injectable()
-export class UserMemoryInjectableRepository extends UserV2MemoryRepository implements IUserRepository, IUserWithPhoneRepository { }
+export class UserMemoryInjectableRepository extends UserV3MemoryRepository implements IUserRepository, IUserWithPhoneRepository { }
