@@ -1,7 +1,7 @@
-import { IUserWithFullNameRepository, IUserWithFullNameRepositoryData, IUserWithFullNameSaver, IUserWithFullNameSaverRawData } from "@domain/user";
+import { IUserWithFullNameAndPhoneRawRepositoryData, IUserWithFullNameAndPhoneRepository, IUserWithFullNameRepository, IUserWithFullNameRepositoryData, IUserWithFullNameSaver, IUserWithFullNameSaverRawData } from "@domain/user";
 import { UserV2MemoryRepository } from "./user-v2.memory.repository";
 
-export class UserV3MemoryRepository extends UserV2MemoryRepository implements IUserWithFullNameRepository, IUserWithFullNameSaver {
+export class UserV3MemoryRepository extends UserV2MemoryRepository implements IUserWithFullNameRepository, IUserWithFullNameSaver, IUserWithFullNameAndPhoneRepository {
     constructor() {
         super()
         this.users = [{
@@ -44,8 +44,22 @@ export class UserV3MemoryRepository extends UserV2MemoryRepository implements IU
         this.users[userIndex].firstName = firstName
         this.users[userIndex].lastName = lastName
         // for compatibility
-        this.users[userIndex].name = `${firstName} ${lastName}`
+        this.users[userIndex].name = firstName && lastName ? `${firstName} ${lastName}` : firstName || lastName
 
         this.users[userIndex].phone = phone
+    }
+
+    async getUserWithFullNameAndPhoneById(id: number): Promise<IUserWithFullNameAndPhoneRawRepositoryData> {
+        const userData = this.users.find(user => user.id === id);
+        if (!userData) {
+            throw new Error(`User with id ${id} not found`);
+        }
+        return Promise.resolve({
+            id,
+            email: userData.email,
+            firstName: userData.firstName || '',
+            lastName: userData.lastName || '',
+            phone: userData.phone || ''
+        })
     }
 }
