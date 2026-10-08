@@ -15,6 +15,7 @@ export * from "./factories/user-with-full-name.factory"
 export * from "./repositories/interfaces/user.repository.interface"
 export * from "./repositories/interfaces/user-with-phone.repository.interface"
 export * from "./repositories/interfaces/user-with-full-name.repository.interface"
+export * from "./repositories/interfaces/user-with-full-name-and-phone.repository.interface"
 
 export * from "./wrappers/interfaces/editable-user-with-email.interface"
 export * from "./wrappers/interfaces/editable-user-with-full-name.interface"
