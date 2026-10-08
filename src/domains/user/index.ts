@@ -17,5 +17,7 @@ export * from "./repositories/interfaces/user-with-phone.repository.interface"
 export * from "./repositories/interfaces/user-with-full-name.repository.interface"
 
 export * from "./wrappers/interfaces/editable-user-with-email.interface"
+export * from "./wrappers/interfaces/editable-user-with-full-name.interface"
 
 export * from "./savers/interfaces/user.saver.interface"
+export * from "./savers/interfaces/user-with-full-name.saver.interface"
