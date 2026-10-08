@@ -1,6 +1,6 @@
-import { IEditableUserWithFullName } from "@domain/user"
+import { IReadableUserWithFullName } from "@domain/user"
 
-export class UserWithFullNameAndPhoneDto {
+export class UserWithFullNameDto {
     readonly email: string
     readonly firstName?: string
     readonly lastName?: string
@@ -10,9 +10,12 @@ export class UserWithFullNameAndPhoneDto {
      */
     readonly name: string
 
-    readonly phone?: string
-
-    constructor({ phone, emailVO, fullNameVO }: IEditableUserWithFullName) {
+    constructor(
+        {
+            emailVO,
+            fullNameVO
+        }: IReadableUserWithFullName
+    ) {
         this.email = emailVO.value
 
         if (fullNameVO.firstName) {
@@ -22,9 +25,5 @@ export class UserWithFullNameAndPhoneDto {
             this.lastName = fullNameVO.lastName
         }
         this.name = fullNameVO.getFullName()
-
-        if (phone) {
-            this.phone = phone
-        }
     }
 }
