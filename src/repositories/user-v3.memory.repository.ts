@@ -1,7 +1,7 @@
-import { IUserWithFullNameRepository, IUserWithFullNameRepositoryData } from "@domain/user";
+import { IUserWithFullNameRepository, IUserWithFullNameRepositoryData, IUserWithFullNameSaver, IUserWithFullNameSaverRawData } from "@domain/user";
 import { UserV2MemoryRepository } from "./user-v2.memory.repository";
 
-export class UserV3MemoryRepository extends UserV2MemoryRepository implements IUserWithFullNameRepository {
+export class UserV3MemoryRepository extends UserV2MemoryRepository implements IUserWithFullNameRepository, IUserWithFullNameSaver {
     constructor() {
         super()
         this.users = [{
@@ -31,5 +31,21 @@ export class UserV3MemoryRepository extends UserV2MemoryRepository implements IU
             firstName: userData.firstName || "",
             lastName: userData.lastName || ""
         });
+    }
+
+    async saveUserWithFullName({
+        id, firstName, lastName, phone
+    }: IUserWithFullNameSaverRawData): Promise<void> {
+        const userIndex = this.users.findIndex(user => user.id === id);
+        if (userIndex === -1) {
+            throw new Error(`User with id ${id} not found`);
+        }
+
+        this.users[userIndex].firstName = firstName
+        this.users[userIndex].lastName = lastName
+        // for compatibility
+        this.users[userIndex].name = `${firstName} ${lastName}`
+
+        this.users[userIndex].phone = phone
     }
 }
