@@ -1,5 +1,8 @@
 import { IReadableUserWithEmailAndPhone } from "@domain/user";
 
+/** 
+ * @deprecated 
+ */
 export class UserWithEmailAndPhoneDto {
     readonly email: string;
     readonly name: string;

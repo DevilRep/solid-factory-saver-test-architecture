@@ -1,3 +1,6 @@
+/**
+ * @deprecated
+ */
 export interface IUserWithPhoneRepositoryData {
     readonly id: number;
     readonly email: string;
@@ -5,6 +8,9 @@ export interface IUserWithPhoneRepositoryData {
     readonly name?: string;
 }
 
+/**
+ * @deprecated
+ */
 export interface IUserWithPhoneRepository {
     getWithPhoneById(id: number): Promise<IUserWithPhoneRepositoryData>;
 }
