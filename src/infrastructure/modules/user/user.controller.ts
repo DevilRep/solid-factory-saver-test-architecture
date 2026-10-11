@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Inject, Param, Put } from "@nestjs/common";
 
-import type { IEditableUserWithEmailFactory, IEditableUserWithFullNameFactory, IUserWithEmailAndPhoneFactory, IUserWithEmailFactory, IUserWithFullNameFactory } from "@domain/user";
+import type { IEditableUserWithEmailFactory, IEditableUserWithFullNameFactory, IUserWithEmailAndPhoneFactory, IUserWithEmailFactory, IUserWithFullNameAndPhoneFactory, IUserWithFullNameFactory } from "@domain/user";
 
 import { EditableUserDataDto } from "./dto/editable-user-data.dto";
 import { UserWithEmailDto } from "./dto/user-with-email.dto";
@@ -26,7 +26,10 @@ export class UserController {
         private readonly editableUserWithFullNameFactory: IEditableUserWithFullNameFactory,
 
         @Inject('IUserWithFullNameFactory')
-        private readonly userWithFullNameFactory: IUserWithFullNameFactory
+        private readonly userWithFullNameFactory: IUserWithFullNameFactory,
+
+        @Inject('IUserWithFullNameAndPhoneFactory')
+        private readonly userWithFullNameAndPhoneFactory: IUserWithFullNameAndPhoneFactory
     ) { }
 
     /**
@@ -35,19 +38,6 @@ export class UserController {
     public async getUserWithEmailById(@Param('id') id: number): Promise<UserWithEmailDto> {
         return new UserWithEmailDto(await this.userWithEmailFactory.createUserWithEmail(+id));
 
-    }
-
-    @Get(':id')
-    public async getUserWithFullNameById(
-        @Param('id') id: number
-    ): Promise<UserWithFullNameDto> {
-        const user = await this.userWithFullNameFactory.createUserWithFullName(+id)
-        return new UserWithFullNameDto(user)
-    }
-
-    @Get('with-phone/:id')
-    public async getUserWithEmailAndPhoneById(@Param('id') id: number): Promise<UserWithEmailAndPhoneDto> {
-        return new UserWithEmailAndPhoneDto(await this.userWithEmailAndPhoneFactory.createUserWithEmailAndPhone(+id));
     }
 
     /**
@@ -62,6 +52,22 @@ export class UserController {
         return new UserWithEmailAndPhoneDto(user);
     }
 
+    /**
+     * @deprecated
+     */
+    //@Get('with-phone/:id')
+    public async getUserWithEmailAndPhoneById(@Param('id') id: number): Promise<UserWithEmailAndPhoneDto> {
+        return new UserWithEmailAndPhoneDto(await this.userWithEmailAndPhoneFactory.createUserWithEmailAndPhone(+id));
+    }
+
+    @Get(':id')
+    public async getUserWithFullNameById(
+        @Param('id') id: number
+    ): Promise<UserWithFullNameDto> {
+        const user = await this.userWithFullNameFactory.createUserWithFullName(+id)
+        return new UserWithFullNameDto(user)
+    }
+
     @Put(':id')
     public async updateUserWithFullNameData(
         @Param('id') id: number,
@@ -69,6 +75,14 @@ export class UserController {
     ): Promise<UserWithFullNameAndPhoneDto> {
         const user = await this.editableUserWithFullNameFactory.createUserForEdit(+id)
         await user.change(new EditableUserWithFullNameDataDto(data))
+        return new UserWithFullNameAndPhoneDto(user)
+    }
+
+    @Get('with-phone/:id')
+    public async getUserWithFullNameAndPhoneById(
+        @Param('id') id: number
+    ): Promise<UserWithFullNameAndPhoneDto> {
+        const user = await this.userWithFullNameAndPhoneFactory.createUserWithFullNameAndPhone(+id)
         return new UserWithFullNameAndPhoneDto(user)
     }
 }
