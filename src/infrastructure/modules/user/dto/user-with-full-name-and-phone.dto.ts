@@ -1,4 +1,4 @@
-import { IEditableUserWithFullName } from "@domain/user"
+import { IReadableUserWithFullNameAndPhone } from "@domain/user"
 
 export class UserWithFullNameAndPhoneDto {
     readonly email: string
@@ -12,7 +12,7 @@ export class UserWithFullNameAndPhoneDto {
 
     readonly phone?: string
 
-    constructor({ phone, emailVO, fullNameVO }: IEditableUserWithFullName) {
+    constructor({ phone, emailVO, fullNameVO }: IReadableUserWithFullNameAndPhone) {
         this.email = emailVO.value
 
         if (fullNameVO.firstName) {
