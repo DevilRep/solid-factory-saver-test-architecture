@@ -1,4 +1,3 @@
-import { IReadableUserWithEmail } from "./interfaces/user-with-email.interface"
 import { IReadableUserWithFullName } from "./interfaces/user-with-full-name.interface"
 import { Email } from "../object-values/email"
 import { FullName } from "../object-values/full-name"
@@ -12,7 +11,7 @@ interface IUserData {
     readonly fullNameVO?: FullName
 }
 
-export class User implements IReadableUserWithEmail, IReadableUserWithFullName {
+export class User implements IReadableUserWithFullName {
     public readonly id: number
 
     public phone: string
@@ -36,9 +35,5 @@ export class User implements IReadableUserWithEmail, IReadableUserWithFullName {
         } else {
             this.fullNameVO = new FullName('', '')
         }
-    }
-
-    public get name(): string {
-        return this.fullNameVO.getFullName()
     }
 }
