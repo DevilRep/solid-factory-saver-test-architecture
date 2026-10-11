@@ -1,9 +1,18 @@
 import { IUserWithFullNameAndPhoneRawRepositoryData, IUserWithFullNameAndPhoneRepository, IUserWithFullNameRepository, IUserWithFullNameRepositoryData, IUserWithFullNameSaver, IUserWithFullNameSaverRawData } from "@domain/user";
-import { UserV2MemoryRepository } from "./user-v2.memory.repository";
 
-export class UserV3MemoryRepository extends UserV2MemoryRepository implements IUserWithFullNameRepository, IUserWithFullNameSaver, IUserWithFullNameAndPhoneRepository {
+interface IUserMemoryRepositoryData {
+    readonly id: number;
+    readonly email: string;
+    phone?: string;
+    name?: string;
+    firstName?: string;
+    lastName?: string;
+}
+
+export class UserV3MemoryRepository implements IUserWithFullNameRepository, IUserWithFullNameSaver, IUserWithFullNameAndPhoneRepository {
+    protected users: IUserMemoryRepositoryData[] = []
+
     constructor() {
-        super()
         this.users = [{
             id: 1,
             email: "user1@example.com",

@@ -2,9 +2,6 @@ import { Module } from "@nestjs/common";
 
 import { UserController } from "./user.controller";
 import { UserMemoryInjectableRepository } from "./dependencies/user.memory.injectable.repository";
-import { UserWithEmailInjectableFactory } from "./dependencies/user-with-email.injectable.factory";
-import { UserWithEmailAndPhoneInjectableFactory } from "./dependencies/user-with-email-and-phone.injectable.factory";
-import { EditableUserWithEmailInjectableFactory } from "./dependencies/editable-user-with-email.injectable.factory";
 import { EditableUserWithFullNameInjectableFactroy } from "./dependencies/editable-user-with-full-namel.injectable.factory";
 import { UserWithFullNameInjectableFactory } from "./dependencies/user-with-full-name.injectable.factory";
 import { UserWithFullNameAndPhoneInjectableFactory } from "./dependencies/user-with-full-name-and-phone.injectable.factory";
@@ -14,18 +11,6 @@ const repo = new UserMemoryInjectableRepository()
 @Module({
     controllers: [UserController],
     providers: [
-        {
-            provide: 'IUserWithEmailFactory',
-            useClass: UserWithEmailInjectableFactory
-        },
-        {
-            provide: 'IUserWithEmailAndPhoneFactory',
-            useClass: UserWithEmailAndPhoneInjectableFactory
-        },
-        {
-            provide: 'IEditableUserWithEmailFactory',
-            useClass: EditableUserWithEmailInjectableFactory
-        },
         {
             provide: 'IEditableUserWithFullNameFactory',
             useClass: EditableUserWithFullNameInjectableFactroy
@@ -40,14 +25,6 @@ const repo = new UserMemoryInjectableRepository()
         },
 
         {
-            provide: 'IUserRepository',
-            useValue: repo,
-        },
-        {
-            provide: 'IUserWithPhoneRepository',
-            useValue: repo,
-        },
-        {
             provide: 'IUserWithFullNameAndPhoneRepository',
             useValue: repo
         },
@@ -56,10 +33,6 @@ const repo = new UserMemoryInjectableRepository()
             useValue: repo
         },
 
-        {
-            provide: 'IUserSaver',
-            useValue: repo,
-        },
         {
             provide: 'IUserWithFullNameSaver',
             useValue: repo
