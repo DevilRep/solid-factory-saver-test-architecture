@@ -110,4 +110,6 @@ There are two levels of validation:
 
 The second part is also important because it helps to avoid issues if some of the pre-domain validation is absent for some reason. Also, it helps to maintain all models as valid and not process the wrong data. To add such rules, it's better to switch the field from a primitive value to a [value object](#switch-from-the-simple-field-to-the-complex-one-value-object).
 
+Such changes can lead to breaking changes - consider checking whether the old data in storage fits the new requirements and prepare a migration if needed.
+
 [Here](https://github.com/search?q=repo%3ADevilRep%2Fsolid-factory-saver-test-architecture+e7&type=commits&s=committer-date&o=desc) you can find commits that show this process.
