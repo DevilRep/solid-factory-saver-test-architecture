@@ -13,20 +13,30 @@ export class UserV3MemoryRepository implements IUserWithFullNameRepository, IUse
     protected users: IUserMemoryRepositoryData[] = []
 
     constructor() {
-        this.users = [{
-            id: 1,
-            email: "user1@example.com",
-            name: "User One",
-            firstName: "User",
-            lastName: "One"
-        }, {
-            id: 2,
-            email: "user2@example.com",
-            phone: "098-765-4321",
-            name: "User Two",
-            firstName: "User",
-            lastName: "Two"
-        }]
+        this.users = [
+            {
+                id: 1,
+                email: "user1@example.com",
+                name: "User One",
+                firstName: "User",
+                lastName: "One"
+            },
+            {
+                id: 2,
+                email: "user2@example.com",
+                phone: "098-765-4321",
+                name: "User Two",
+                firstName: "User",
+                lastName: "Two"
+            },
+            {
+                id: 3,
+                email: "user3.example.com",
+                name: "User Three",
+                firstName: "User",
+                lastName: "Three"
+            },
+        ]
     }
 
     async getUserWithFullNameById(id: number): Promise<IUserWithFullNameRepositoryData> {
