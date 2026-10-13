@@ -28,6 +28,7 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "noFallthroughCasesInSwitch": false,
+    "tsBuildInfoFile": "./dist/tsconfig.tsbuildinfo",
     "paths": {
       "@domain/*": [
         "./src/domains/*"
