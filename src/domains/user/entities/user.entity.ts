@@ -33,7 +33,7 @@ export class User implements IReadableUserWithFullName {
             const [firstName, lastName] = data.name.split(' ')
             this.fullNameVO = new FullName(firstName, lastName)
         } else {
-            this.fullNameVO = new FullName('', '')
+            this.fullNameVO = new FullName(data.emailVO.value)
         }
     }
 }

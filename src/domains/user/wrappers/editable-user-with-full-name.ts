@@ -21,7 +21,7 @@ export class EditableUserWithFullName extends ReadableUserWithFullNameAndEmail i
         await this.saver.saveUserWithFullName({
             id: this.id,
             firstName: this.fullNameVO.firstName,
-            lastName: this.fullNameVO.lastName,
+            lastName: this.fullNameVO.lastName || '',
             phone: this.phone
         })
     }
