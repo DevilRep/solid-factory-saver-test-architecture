@@ -3,6 +3,10 @@ import { EditableUserRawDataDto } from "./editable-user-raw-data.dto"
 export class EditableUserWithFullNameDataDto {
     firstName: string
     lastName: string
+
+    /**
+     * @deprecated
+     */
     phone?: string
 
     constructor({

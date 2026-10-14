@@ -38,6 +38,9 @@ export class UserController {
         return new UserWithFullNameAndPhoneDto(user)
     }
 
+    /**
+     * @deprecated
+     */
     @Get('with-phone/:id')
     public async getUserWithFullNameAndPhoneById(
         @Param('id') id: number
