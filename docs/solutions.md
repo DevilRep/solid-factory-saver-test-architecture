@@ -118,4 +118,6 @@ Such changes can lead to breaking changes - consider checking whether the old da
 
 This is a breaking change. First of all, the field should be marked as deprecated on the API side (DTO and documentation). Second, the field should become optional. Third, consider to create a separate endpoint using versioning that will allow to work without deleting field - in some cases it's not necessary and the field can be removed in a major release.
 
+The strategy should be the same as the one used for [refactoring](#switch-from-the-simple-field-to-the-complex-one-value-object).
+
 [Here](https://github.com/search?q=repo%3ADevilRep%2Fsolid-factory-saver-test-architecture+e8&type=commits&s=committer-date&o=desc) you can find commits that show this process.
