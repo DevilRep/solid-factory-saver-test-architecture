@@ -3,7 +3,12 @@ import { IUserWithFullNameAndPhoneRawRepositoryData, IUserWithFullNameAndPhoneRe
 interface IUserMemoryRepositoryData {
     readonly id: number;
     readonly email: string;
+
+    /**
+     * @deprecated
+     */
     phone?: string;
+
     name?: string;
     firstName?: string;
     lastName?: string;

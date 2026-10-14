@@ -3,6 +3,10 @@ import { IReadableUserWithFullNameAndPhone } from "../../entities/interfaces/use
 export interface IEditableUserWithFullNameData {
     readonly firstName: string
     readonly lastName: string
+
+    /**
+     * @deprecated
+     */
     readonly phone?: string
 }
 

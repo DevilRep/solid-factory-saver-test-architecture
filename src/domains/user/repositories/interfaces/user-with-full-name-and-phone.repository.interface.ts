@@ -3,7 +3,11 @@ export interface IUserWithFullNameAndPhoneRawRepositoryData {
     readonly email: string
     readonly firstName: string
     readonly lastName: string
-    readonly phone: string
+
+    /**
+     * @deprecated
+     */
+    readonly phone?: string
 }
 
 export interface IUserWithFullNameAndPhoneRepository {

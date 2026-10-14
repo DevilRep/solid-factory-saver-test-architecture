@@ -3,5 +3,9 @@ import { IReadableUserWithFullNameAndPhone } from "./user-with-full-name-and-pho
 
 export interface IWritableUserWithFullName extends IReadableUserWithFullNameAndPhone {
     fullNameVO: FullName
+
+    /**
+     * @deprecated
+     */
     phone: string
 }

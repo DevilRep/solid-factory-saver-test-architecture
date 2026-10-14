@@ -4,7 +4,12 @@ import { FullName } from "../object-values/full-name"
 
 interface IUserData {
     readonly id: number
+
+    /**
+     * @deprecated
+     */
     readonly phone?: string
+
     readonly name?: string
 
     readonly emailVO: Email
@@ -14,6 +19,9 @@ interface IUserData {
 export class User implements IReadableUserWithFullName {
     public readonly id: number
 
+    /**
+     * @deprecated
+     */
     public phone: string
 
     public emailVO: Email
