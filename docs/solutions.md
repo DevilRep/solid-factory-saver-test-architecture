@@ -10,7 +10,7 @@ This list outlines challenges and solutions to help you understand how this arch
 5. [Updating the optional fields](#updating-the-optional-fields).
 6. [Code lifecycle: switch from the simple field to the complex one](#switch-from-the-simple-field-to-the-complex-one-value-object).
 7. [A business validation rule](#a-business-validation-rule).
-8. Code lifecycle: removing the field.
+8. [Code lifecycle: removing a field](#removing-a-field).
 9. Auth process (additional separate action).
 10. Sign up.
 11. Checking access restrictions before reading the data (additional separate action).
@@ -113,3 +113,9 @@ The second part is also important because it helps to avoid issues if some of th
 Such changes can lead to breaking changes - consider checking whether the old data in storage fits the new requirements and prepare a migration if needed.
 
 [Here](https://github.com/search?q=repo%3ADevilRep%2Fsolid-factory-saver-test-architecture+e7&type=commits&s=committer-date&o=desc) you can find commits that show this process.
+
+## Removing a field
+
+This is a breaking change. First of all, the field should be marked as deprecated on the API side (DTO and documentation). Second, the field should become optional. Third, consider to create a separate endpoint using versioning that will allow to work without deleting field - in some cases it's not necessary and the field can be removed in a major release.
+
+[Here](https://github.com/search?q=repo%3ADevilRep%2Fsolid-factory-saver-test-architecture+e8&type=commits&s=committer-date&o=desc) you can find commits that show this process.
