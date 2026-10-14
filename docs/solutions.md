@@ -116,7 +116,7 @@ Such changes can lead to breaking changes - consider checking whether the old da
 
 ## Removing a field
 
-This is a breaking change. First of all, the field should be marked as deprecated on the API side (DTO and documentation). Second, the field should become optional. Third, consider to create a separate endpoint using versioning that will allow to work without deleting field - in some cases it's not necessary and the field can be removed in a major release.
+This is a breaking change. First of all, the field should be marked as deprecated on the API side (DTO and documentation). Second, the field should become optional. Third, consider to create a separate endpoint using versioning that will allow to work without this field - in some cases it's not necessary and the field can be removed in a major release.
 
 The strategy should be the same as the one used for [refactoring](#switch-from-the-simple-field-to-the-complex-one-value-object).
 
