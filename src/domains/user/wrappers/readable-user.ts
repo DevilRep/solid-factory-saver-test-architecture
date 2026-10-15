@@ -12,10 +12,10 @@ export class ReadableUser implements IReadableUserWithFullName {
     }
 
     get emailVO(): Email {
-        return this.emailVO
+        return this.user.emailVO
     }
 
     get fullNameVO(): FullName {
-        return this.fullNameVO
+        return this.user.fullNameVO
     }
 }
