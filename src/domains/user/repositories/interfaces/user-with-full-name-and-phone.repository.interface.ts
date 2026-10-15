@@ -1,3 +1,6 @@
+/**
+ * @deprecated
+ */
 export interface IUserWithFullNameAndPhoneRawRepositoryData {
     readonly id: number
     readonly email: string
@@ -10,6 +13,9 @@ export interface IUserWithFullNameAndPhoneRawRepositoryData {
     readonly phone?: string
 }
 
+/**
+ * @deprecated
+ */
 export interface IUserWithFullNameAndPhoneRepository {
     getUserWithFullNameAndPhoneById(id: number): Promise<IUserWithFullNameAndPhoneRawRepositoryData>
 }
