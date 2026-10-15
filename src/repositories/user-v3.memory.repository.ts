@@ -1,4 +1,4 @@
-import { IUserWithFullNameAndPhoneRawRepositoryData, IUserWithFullNameAndPhoneRepository, IUserWithFullNameRepository, IUserWithFullNameRepositoryData, IUserWithFullNameSaver, IUserWithFullNameSaverRawData } from "@domain/user";
+import { IUserSaver, IUserSaverRawData, IUserWithFullNameAndPhoneRawRepositoryData, IUserWithFullNameAndPhoneRepository, IUserWithFullNameRepository, IUserWithFullNameRepositoryData, IUserWithFullNameSaver, IUserWithFullNameSaverRawData } from "@domain/user";
 
 interface IUserMemoryRepositoryData {
     readonly id: number;
@@ -14,7 +14,7 @@ interface IUserMemoryRepositoryData {
     lastName?: string;
 }
 
-export class UserV3MemoryRepository implements IUserWithFullNameRepository, IUserWithFullNameSaver, IUserWithFullNameAndPhoneRepository {
+export class UserV3MemoryRepository implements IUserWithFullNameRepository, IUserWithFullNameSaver, IUserWithFullNameAndPhoneRepository, IUserSaver {
     protected users: IUserMemoryRepositoryData[] = []
 
     constructor() {
@@ -85,5 +85,15 @@ export class UserV3MemoryRepository implements IUserWithFullNameRepository, IUse
             lastName: userData.lastName || '',
             phone: userData.phone || ''
         })
+    }
+
+    async saveUserData({ id, firstName, lastName }: IUserSaverRawData): Promise<void> {
+        const userIndex = this.users.findIndex(user => user.id === id);
+        if (userIndex === -1) {
+            throw new Error(`User with id ${id} not found`);
+        }
+
+        this.users[userIndex].firstName = firstName
+        this.users[userIndex].lastName = lastName
     }
 }
