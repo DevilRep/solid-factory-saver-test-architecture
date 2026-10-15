@@ -9,6 +9,7 @@ export * from "./factories/interfaces/editable-user-factory.interface"
 export * from "./factories/user-with-full-name.factory"
 export * from "./factories/editable-user-with-full-name.factory"
 export * from "./factories/user-with-full-name-and-phone.factory"
+export * from "./factories/editable-user.factory"
 
 export * from "./repositories/interfaces/user-with-full-name.repository.interface"
 export * from "./repositories/interfaces/user-with-full-name-and-phone.repository.interface"
