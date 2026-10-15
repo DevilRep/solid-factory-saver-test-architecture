@@ -3,7 +3,7 @@ export class FullName {
     public readonly lastName?: string
 
     constructor(firstName: string, lastName?: string) {
-        const trimmedFirstName = firstName.trim()
+        const trimmedFirstName = firstName?.trim()
         const trimmedLastName = lastName?.trim()
 
         this.validateData(trimmedFirstName, trimmedLastName)
@@ -20,13 +20,13 @@ export class FullName {
     }
 
     protected validateData(firstName: string, lastName?: string): void {
-        if (!firstName.length) {
+        if (!firstName?.length) {
             throw Error('Please provide your first name.')
         }
-        if (firstName.length < 2) {
+        if (firstName?.length < 2) {
             throw Error('The first name should contain at least two characters.')
         }
-        if (firstName.length >= 100) {
+        if (firstName?.length >= 100) {
             throw Error('The first name should contain fewer than 100 characters.')
         }
 
