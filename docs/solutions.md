@@ -121,3 +121,9 @@ This is a breaking change. First of all, the field should be marked as deprecate
 The strategy should be the same as the one used for [refactoring](#switch-from-the-simple-field-to-the-complex-one-value-object).
 
 [Here](https://github.com/search?q=repo%3ADevilRep%2Fsolid-factory-saver-test-architecture+e8&type=commits&s=committer-date&o=desc) you can find commits that show this process.
+
+## Auth process
+
+First of all, let's check the auth processing using JWT tokens. To cover these cases, a new value object with some methods for ecnryption/decryption should be created. This value object should be a part of the entity wrapper, because it is required only for some cases. The value object should have a few static methods for creating a new object; this helps to deal with the encryption/decryption problem while creating a new value object value (the encryption/decription have to be async).
+
+[Here](https://github.com/search?q=repo%3ADevilRep%2Fsolid-factory-saver-test-architecture+e9&type=commits&s=committer-date&o=desc) you can find commits that show this process.
