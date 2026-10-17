@@ -1,9 +1,10 @@
 import { NestFactory } from '@nestjs/core';
 import { VersioningType } from '@nestjs/common';
 
+import 'dotenv/config'
+
 import { AppModule } from '@infrastructure/modules';
 import { CustomExceptionFilter } from '@infrastructure/filters/exception.filter';
-
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
