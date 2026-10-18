@@ -11,7 +11,7 @@ This list outlines challenges and solutions to help you understand how this arch
 6. [Code lifecycle: switch from the simple field to the complex one](#switch-from-the-simple-field-to-the-complex-one-value-object).
 7. [A business validation rule](#a-business-validation-rule).
 8. [Code lifecycle: removing a field](#removing-a-field).
-9. Auth process (additional separate action).
+9. [Auth process](#auth-process) (additional separate action).
 10. Sign up.
 11. Checking access restrictions before reading the data (additional separate action).
 12. Saving changelogs while updating the data in the store (additional separate action)
@@ -54,13 +54,20 @@ There are a few steps to add a new field:
 ## Updating the required fields
 This is an interesting case because it also shows how to work with entity wrappers.
 
+Key points:
+* the controller creates an entity-like object using a factory
+* the factory gets the data from storage, creates an object with fields that can be updated, and wraps it using an entity wrapper to conceal the updating process
+* the controller calls the method from the entity-like object (so from the wrapper) that updates all fields at once
+* the entity wrapper updates each field one by one in the entity and, using the link on the saver, updates the data in storage
+* the controller creates a DTO to pass the result by HTTP
+
 There are a few steps to do this:
 1. Create a new interface that allows updating the field.
 2. Create new interfaces for the entity wrapper to update the field: one for the wrapper itself and another one for the data that the wrapper expects.
 3. Create a new interface for a saver - it should have a function that gets the raw data and returns nothing. Also, a new interface should be created for the raw data.
 4. Create an interface for a factory.
 5. Update entity's implementation to support the interface for the updating fields from the step 1.
-6. Create an implementation of the entity wrapper that updates the values. The method updates the field and runs the saver's method to update the data in the storage. It should have a few parameters for the constructor, including:
+6. Create an implementation of the entity wrapper that updates the values. The method updates the field and runs the saver's method to update the data in storage. It should have a few parameters for the constructor, including:
     * an object of a class that implements the interface for updating fields (from step 1)
     * a link to the saver
 7. Create an implementation for the factory that works with the repository and the saver; pass both as constructor parameters. The factory returns an object that implements the entity wrapper interface and **should not allow direct field updates**.
@@ -112,6 +119,8 @@ The second part is also important because it helps to avoid issues if some of th
 
 Such changes can lead to breaking changes - consider checking whether the old data in storage fits the new requirements and prepare a migration if needed.
 
+The key point in this process is that the data is validated when an entity object is created - it means if the object exists, it is valid: the factory creates each value object for the entity fields and passes them to the entity constructor.
+
 [Here](https://github.com/search?q=repo%3ADevilRep%2Fsolid-factory-saver-test-architecture+e7&type=commits&s=committer-date&o=desc) you can find commits that show this process.
 
 ## Removing a field
@@ -124,6 +133,27 @@ The strategy should be the same as the one used for [refactoring](#switch-from-t
 
 ## Auth process
 
-First of all, let's check the auth processing using JWT tokens. To cover these cases, a new value object with some methods for ecnryption/decryption should be created. This value object should be a part of the entity wrapper, because it is required only for some cases. The value object should have a few static methods for creating a new object; this helps to deal with the encryption/decryption problem while creating a new value object value (the encryption/decription have to be async).
+First, let's check the auth processing using JWT tokens. To cover this case, a new value object with some methods for ecnryption/decryption should be created. This value object can be added to the entity wrapper, because the field with it is required only in some cases. The value object should have a few static methods for creating a new object; this helps to deal with the encryption/decryption problem while creating a new value object (the encryption/decryption have to be async).
+
+Key points for auth while passing an access JWT token:
+* a factory creates a value object from the JWT token. The value object contains both encrypted and decrypted data
+* the same factory gets the data from storage using the decrypted data from the value object
+* the factory creates an entity object with read-only fields.
+
+Key points for auth while passing email/password (sign in):
+* a factory gets the raw data by email
+* the factory creates an entity using the raw data and wraps it using a specific wrapper that can work with passwords. This wrapper has a method that will be called to compare the passwords. The factory passes the user's password using a value object.
+* the controller calls the method from the wrapper and passes the provided password as string
+* the wrapper method creates a value object from the provided password and compares the it with the existed one using the method from the value object
+* the wrapper creates an auth data: two JWT tokens wrapped in value objects for the JWT tokens. The value object contains both encrypted and decrypted data. Then the wrapper returns this data to the controller.
+
+Key points for auth while passing a refresh JWT token:
+* a factory creates a value object from the JWT token. The value object contains both encrypted and decrypted data
+* the same factory gets the data from storage using the decrypted data from the value object
+* the factory creates an entity object and wraps it using the wrapper that adds new access and refresh tokens - the values for them the factory creates itself using a value object for JWT tokens.
+
+**Note**: the request to storage for getting the data is used to ensure the entity still exists in storage - otherwise, the repository/factroy throws an exception.
+
+Now let's check the session case. If the session storage is fully controlled by the project, the user data can be found using storage request by session id - otherwise the auth process with provided session id is just the [reading the data from storage](#reading-the-data).
 
 [Here](https://github.com/search?q=repo%3ADevilRep%2Fsolid-factory-saver-test-architecture+e9&type=commits&s=committer-date&o=desc) you can find commits that show this process.
