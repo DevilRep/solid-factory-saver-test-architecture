@@ -3,5 +3,5 @@ export interface IAuthenticatedUserRawData {
 }
 
 export interface IAuthenticatedUserRepository {
-    getUserById(id: number): IAuthenticatedUserRawData
+    getUserById(id: number): Promise<IAuthenticatedUserRawData>
 }
