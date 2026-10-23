@@ -1,4 +1,4 @@
-import { IUserSaver, IUserSaverRawData, IUserWithFullNameAndPhoneRawRepositoryData, IUserWithFullNameAndPhoneRepository, IUserWithFullNameRepository, IUserWithFullNameRepositoryData, IUserWithFullNameSaver, IUserWithFullNameSaverRawData } from "@domain/user";
+import { IAuthenticatedUserRepository, IUserSaver, IUserSaverRawData, IUserWithFullNameAndPhoneRawRepositoryData, IUserWithFullNameAndPhoneRepository, IUserWithFullNameRepository, IUserWithFullNameRepositoryData, IUserWithFullNameSaver, IUserWithFullNameSaverRawData } from "@domain/user";
 
 interface IUserMemoryRepositoryData {
     readonly id: number;
@@ -14,7 +14,7 @@ interface IUserMemoryRepositoryData {
     lastName?: string;
 }
 
-export class UserV3MemoryRepository implements IUserWithFullNameRepository, IUserWithFullNameSaver, IUserWithFullNameAndPhoneRepository, IUserSaver {
+export class UserV3MemoryRepository implements IUserWithFullNameRepository, IUserWithFullNameSaver, IUserWithFullNameAndPhoneRepository, IUserSaver, IAuthenticatedUserRepository {
     protected users: IUserMemoryRepositoryData[] = []
 
     constructor() {
@@ -95,5 +95,11 @@ export class UserV3MemoryRepository implements IUserWithFullNameRepository, IUse
 
         this.users[userIndex].firstName = firstName
         this.users[userIndex].lastName = lastName
+    }
+
+    async isExist(id: number): Promise<boolean> {
+        const userIndex = this.users.findIndex(user => user.id === id);
+
+        return userIndex > 0
     }
 }
