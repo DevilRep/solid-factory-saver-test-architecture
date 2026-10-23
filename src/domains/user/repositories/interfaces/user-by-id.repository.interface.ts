@@ -1,7 +1,7 @@
-export interface IUserByIdRawData {
+export interface IAuthenticatedUserRawData {
     readonly id: number
 }
 
-export interface IUserByIdRepository {
-    getUserById(id: number): IUserByIdRawData
+export interface IAuthenticatedUserRepository {
+    getUserById(id: number): IAuthenticatedUserRawData
 }
