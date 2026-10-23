@@ -133,27 +133,53 @@ The strategy should be the same as the one used for [refactoring](#switch-from-t
 
 ## Auth process
 
-First, let's check the auth processing using JWT tokens. To cover this case, a new value object with some methods for ecnryption/decryption should be created. This value object can be added to the entity wrapper, because the field with it is required only in some cases. The value object should have a few static methods for creating a new object; this helps to deal with the encryption/decryption problem while creating a new value object (the encryption/decryption have to be async).
+There are four different possible cases:
+1. Session auth: the project controls session storage
+2. Session auth, an external lib controls session storage
+3. JWT tokens auth, the project handles the tokens
+4. JWT tokens auth, an external lib handles the tokens
+
+For some of these cases, some workflows are almost the same. For example, sign in:
+* a factory gets the raw data by email
+* the factory creates an entity using the raw data and wraps it using a specific wrapper that can work with passwords (the password wrapper). This wrapper has a method that will be called to compare the passwords. The factory passes the user's password using a value object. Another wrapper will provide the specific auth data (session ID or JWT tokens) - the auth wrapper. Both wrappers have the same method signIn, but the results of these methods are different - only the auth wrapper should return the data. The auth wrapper implementation must use the password wrapper as a parameter for the constructor.
+* the controller calls the method from the wrapper and passes the provided password as a string
+* the auth wrapper passes the data to the password wrapper. The password wrapper's method creates a value object from the provided password and compares it with the existing one using the method from the value object.
+* the auth wrapper creates an auth data
+
+### Session auth, the project controls session storage
+
+Getting the user data by a session ID should be implemented using a [read-from-storage](#reading-the-data) approach. The sign-in workflow uses an auth wrapper that has a link to a saver to create a session. The saver gets the user ID and returns a new session ID. Then the session ID can be added to the cookies.
+
+### Session auth, an external lib controls session storage
+
+Because the external lib returns the session data, there is no sense in creating a method to get the user data by session ID; instead, we could simply [read the data from storage by user ID](#reading-the-data). The auth wrapper also has the link to the saver, but it doesn't return a new session ID - it only starts the session using the lib, while the lib adds anything else (like the cookies) by itself.
+
+[Here](https://github.com/search?q=repo%3ADevilRep%2Fsolid-factory-saver-test-architecture+e9a&type=commits&s=committer-date&o=desc) you can find commits that show this process for JWT tokens.
+
+### JWT tokens auth, the project handles the tokens
+
+To cover this case, a new value object with some methods for ecnryption/decryption should be created. This value object can be added to the entity wrapper, because the field with it is required only in some cases. The value object should have a few static methods for creating a new object; this helps to deal with the encryption/decryption problem while creating a new value object (the encryption/decryption have to be async).
 
 Key points for auth while passing an access JWT token:
 * a factory creates a value object from the JWT token. The value object contains both encrypted and decrypted data
 * the same factory gets the data from storage using the decrypted data from the value object
-* the factory creates an entity object with read-only fields.
-
-Key points for auth while passing email/password (sign in):
-* a factory gets the raw data by email
-* the factory creates an entity using the raw data and wraps it using a specific wrapper that can work with passwords. This wrapper has a method that will be called to compare the passwords. The factory passes the user's password using a value object.
-* the controller calls the method from the wrapper and passes the provided password as string
-* the wrapper method creates a value object from the provided password and compares the it with the existed one using the method from the value object
-* the wrapper creates an auth data: two JWT tokens wrapped in value objects for the JWT tokens. The value object contains both encrypted and decrypted data. Then the wrapper returns this data to the controller.
+* the factory creates an entity object with read-only fields
+* the auth wrapper returns two tokens as value objects, and the controller returns them by HTTP.
 
 Key points for auth while passing a refresh JWT token:
 * a factory creates a value object from the JWT token. The value object contains both encrypted and decrypted data
 * the same factory gets the data from storage using the decrypted data from the value object
-* the factory creates an entity object and wraps it using the wrapper that adds new access and refresh tokens - the values for them the factory creates itself using a value object for JWT tokens.
+* the factory creates an entity object and wraps it using the wrapper that adds new access and refresh tokens; the values for them the factory creates itself using a value object for JWT tokens.
 
-**Note**: the request to storage for getting the data is used to ensure the entity still exists in storage - otherwise, the repository/factroy throws an exception.
+**Note**: the request to storage for getting the data is used to ensure the entity still exists in storage; otherwise, the repository/factroy throws an exception.
 
-Now let's check the session case. If the session storage is fully controlled by the project, the user data can be found using storage request by session id - otherwise the auth process with provided session id is just the [reading the data from storage](#reading-the-data).
+[Here](https://github.com/search?q=repo%3ADevilRep%2Fsolid-factory-saver-test-architecture+e9b&type=commits&s=committer-date&o=desc) you can find commits that show this process for JWT tokens.
 
-[Here](https://github.com/search?q=repo%3ADevilRep%2Fsolid-factory-saver-test-architecture+e9&type=commits&s=committer-date&o=desc) you can find commits that show this process.
+### JWT tokens auth, an external lib handles the tokens
+
+Because the external lib covers the decryption, this case can also use the simplest way to get the user data - just by user ID. The auth wrapper also returns two tokens, but the values for them should be obtained using another approach - a saver. This saver creates the token using the external lib and returns two strings. Then the auth wrapper can create value objects from these strings.
+
+The refresh token can be handled using both approaches above (getting the user data by user ID and the auth wrapper) or, if the external lib supports it, on its own.
+
+[Here](https://github.com/search?q=repo%3ADevilRep%2Fsolid-factory-saver-test-architecture+e9c&type=commits&s=committer-date&o=desc) you can find commits that show this process for JWT tokens.
+
