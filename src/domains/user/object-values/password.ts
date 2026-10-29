@@ -12,6 +12,10 @@ export class Password {
         return new Password(hashedPassword, password)
     }
 
+    static async fromHashedString(hashedString: string): Promise<Password> {
+        return new Password(hashedString)
+    }
+
     async isEqual(password: Password): Promise<boolean> {
         if (this.rawValue) {
             return compare(this.rawValue, password.hashedValue)
