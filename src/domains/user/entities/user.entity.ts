@@ -1,6 +1,6 @@
 import { IReadableUserWithFullName } from "./interfaces/user-with-full-name.interface"
-import { Email } from "../object-values/email"
-import { FullName } from "../object-values/full-name"
+import { Email } from "../value-object/email"
+import { FullName } from "../value-object/full-name"
 
 interface IUserData {
     readonly id: number

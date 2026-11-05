@@ -1,6 +1,6 @@
 import { User } from "../entities/user.entity";
-import { Email } from "../object-values/email";
-import { FullName } from "../object-values/full-name";
+import { Email } from "../value-object/email";
+import { FullName } from "../value-object/full-name";
 import { IUserWithFullNameRepository } from "../repositories/interfaces/user-with-full-name.repository.interface";
 import { IUserSaver } from "../savers/interfaces/user-saver.interface";
 import { EditableUser } from "../wrappers/editable-user";

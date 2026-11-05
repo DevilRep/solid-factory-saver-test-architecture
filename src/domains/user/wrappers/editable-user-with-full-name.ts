@@ -1,5 +1,5 @@
 import { IWritableUserWithFullName } from "../entities/interfaces/writable-user-with-full-name.interface"
-import { FullName } from "../object-values/full-name"
+import { FullName } from "../value-object/full-name"
 import { IUserWithFullNameSaver } from "../savers/interfaces/user-with-full-name.saver.interface"
 import { IEditableUserWithFullName, IEditableUserWithFullNameData } from "./interfaces/editable-user-with-full-name.interface"
 import { ReadableUserWithFullNameAndEmail } from "./readable-user-with-full-name-and-email"

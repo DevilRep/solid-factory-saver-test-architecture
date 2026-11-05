@@ -1,5 +1,5 @@
 import { IAuthenticatedUser } from "../entities/interfaces/authenticated-user.interface"
-import { Password } from "../object-values/password"
+import { Password } from "../value-object/password"
 import { IAuthenticableUser } from "./interfaces/authenticable-user.interface"
 
 export class AuthenticableUser implements IAuthenticableUser {

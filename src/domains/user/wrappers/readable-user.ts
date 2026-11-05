@@ -1,6 +1,6 @@
 import { IReadableUserWithFullName } from "../entities/interfaces/user-with-full-name.interface";
-import { Email } from "../object-values/email";
-import { FullName } from "../object-values/full-name";
+import { Email } from "../value-object/email";
+import { FullName } from "../value-object/full-name";
 
 export class ReadableUser implements IReadableUserWithFullName {
     constructor(

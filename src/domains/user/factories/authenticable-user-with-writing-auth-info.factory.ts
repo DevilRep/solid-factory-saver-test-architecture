@@ -1,5 +1,5 @@
 import { AuthenticatedUser } from "../entities/authenticated-user"
-import { Password } from "../object-values/password"
+import { Password } from "../value-object/password"
 import { IAuthentificableUserRepository } from "../repositories/interfaces/authenticable-user.repository.interface"
 import { IAuthenticableUserSaver } from "../savers/interfaces/authenticable-user.saver.interface"
 import { AuthenticableUser } from "../wrappers/authenticable-user"

@@ -1,5 +1,5 @@
-import { Email } from "../../object-values/email"
-import { FullName } from "../../object-values/full-name"
+import { Email } from "../../value-object/email"
+import { FullName } from "../../value-object/full-name"
 
 export interface IReadableUserWithFullName {
     readonly id: number

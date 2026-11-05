@@ -1,5 +1,5 @@
 import { IWritableUser } from "../entities/interfaces/writable-user.interface"
-import { FullName } from "../object-values/full-name"
+import { FullName } from "../value-object/full-name"
 import { IUserSaver } from "../savers/interfaces/user-saver.interface"
 import { IEditableUser, IEditableUserData } from "./interfaces/editable-user.interface"
 import { ReadableUser } from "./readable-user"
