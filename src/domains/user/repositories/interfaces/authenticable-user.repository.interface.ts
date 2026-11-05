@@ -1,8 +1,8 @@
-export interface IAuthentificableUserRawData {
+export interface IAuthenticableUserRawData {
     id: number
     password: string
 }
 
-export interface IAuthentificableUserRepository {
-    getUserWithPassword(id: number): Promise<IAuthentificableUserRawData>
+export interface IAuthenticableUserRepository {
+    getUserWithPassword(id: number): Promise<IAuthenticableUserRawData>
 }

@@ -1,6 +1,6 @@
 import { AuthenticatedUser } from "../entities/authenticated-user"
 import { Password } from "../value-object/password"
-import { IAuthentificableUserRepository } from "../repositories/interfaces/authenticable-user.repository.interface"
+import { IAuthenticableUserRepository } from "../repositories/interfaces/authenticable-user.repository.interface"
 import { IAuthenticableUserSaver } from "../savers/interfaces/authenticable-user.saver.interface"
 import { AuthenticableUser } from "../wrappers/authenticable-user"
 import { AuthenticableUserWithSavingInfo } from "../wrappers/authenticable-user-with-saving-info"
@@ -9,7 +9,7 @@ import { IAuthenticableUserFactory } from "./interfaces/authenticable-user.facto
 
 export class AuthenticableUserWithWritingAuthInfoFactory implements IAuthenticableUserFactory {
     constructor(
-        private readonly repository: IAuthentificableUserRepository,
+        private readonly repository: IAuthenticableUserRepository,
         private readonly saver: IAuthenticableUserSaver
     ) { }
 
