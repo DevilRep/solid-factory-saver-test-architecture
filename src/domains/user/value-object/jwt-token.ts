@@ -1,7 +1,7 @@
 import { JwtPayload, verify, sign } from "jsonwebtoken"
 
 export interface IAuthJwtTokenData {
-    readonly userId: string
+    readonly userId: number
 }
 
 export enum ExpiresIn {
@@ -37,7 +37,7 @@ export class JwtToken {
         }
 
         return new JwtToken(jwtToken, {
-            userId: decodedData.sub
+            userId: +decodedData.sub
         })
     }
 
