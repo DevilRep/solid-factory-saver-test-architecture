@@ -125,10 +125,10 @@ export class UserV3MemoryRepository implements
         return userIndex > 0
     }
 
-    async getUserWithPassword(id: number): Promise<IAuthenticableUserRawData> {
-        const userData = this.users.find(user => user.id === id);
+    async getUserWithPassword(email: string): Promise<IAuthenticableUserRawData> {
+        const userData = this.users.find(user => user.email === email);
         if (!userData) {
-            throw new Error(`User with id ${id} not found`);
+            throw new Error(`User with email ${email} not found`);
         }
         return Promise.resolve({
             id: userData.id,
