@@ -1,7 +1,7 @@
 import { ExpiresIn, IAuthJwtTokenData, JwtToken } from "./jwt-token"
 
 export class AuthJwtTokens {
-    protected constructor(
+    public constructor(
         public readonly accessToken: JwtToken,
         public readonly refreshToken: JwtToken
     ) { }
