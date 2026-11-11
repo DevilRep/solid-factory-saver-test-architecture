@@ -2,10 +2,11 @@ import { IAuthenticableUserWithJwtTokensRawData, IAuthenticableUserWithJwtTokens
 import { AuthJwtTokens } from "../value-object/auth-jwt-tokens"
 import { JwtToken } from "../value-object/jwt-token"
 import { IAuthenticableUserWithJwtTokens } from "./interfaces/authenticable-user-with-jwt-tokens.interface"
+import { IAuthenticableUser } from "./interfaces/authenticable-user.interface"
 
 export class AuthenticableUserWithGettingJwtTokens implements IAuthenticableUserWithJwtTokens {
     constructor(
-        protected readonly user: IAuthenticableUserWithJwtTokens,
+        protected readonly user: IAuthenticableUser,
         protected readonly saver: IAuthenticableUserWithJwtTokensSaver
     ) { }
 
