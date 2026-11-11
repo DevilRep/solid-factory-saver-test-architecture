@@ -1,4 +1,16 @@
-import { IAuthenticatedUserRepository, IUserSaver, IUserSaverRawData, IUserWithFullNameAndPhoneRawRepositoryData, IUserWithFullNameAndPhoneRepository, IUserWithFullNameRepository, IUserWithFullNameRepositoryData, IUserWithFullNameSaver, IUserWithFullNameSaverRawData } from "@domain/user";
+import {
+    IAuthenticatedUserRepository,
+    IUserSaver,
+    IUserSaverRawData,
+    IUserWithFullNameAndPhoneRawRepositoryData,
+    IUserWithFullNameAndPhoneRepository,
+    IUserWithFullNameRepository,
+    IUserWithFullNameRepositoryData,
+    IUserWithFullNameSaver,
+    IUserWithFullNameSaverRawData,
+    IAuthenticableUserRepository,
+    IAuthenticableUserRawData,
+} from "@domain/user";
 
 interface IUserMemoryRepositoryData {
     readonly id: number;
@@ -12,9 +24,16 @@ interface IUserMemoryRepositoryData {
     name?: string;
     firstName?: string;
     lastName?: string;
+    password: string;
 }
 
-export class UserV3MemoryRepository implements IUserWithFullNameRepository, IUserWithFullNameSaver, IUserWithFullNameAndPhoneRepository, IUserSaver, IAuthenticatedUserRepository {
+export class UserV3MemoryRepository implements
+    IUserWithFullNameRepository,
+    IUserWithFullNameAndPhoneRepository,
+    IAuthenticatedUserRepository,
+    IAuthenticableUserRepository,
+    IUserSaver,
+    IUserWithFullNameSaver {
     protected users: IUserMemoryRepositoryData[] = []
 
     constructor() {
@@ -24,7 +43,8 @@ export class UserV3MemoryRepository implements IUserWithFullNameRepository, IUse
                 email: "user1@example.com",
                 name: "User One",
                 firstName: "User",
-                lastName: "One"
+                lastName: "One",
+                password: "hashed_password"
             },
             {
                 id: 2,
@@ -32,14 +52,16 @@ export class UserV3MemoryRepository implements IUserWithFullNameRepository, IUse
                 phone: "098-765-4321",
                 name: "User Two",
                 firstName: "User",
-                lastName: "Two"
+                lastName: "Two",
+                password: "hashed_password"
             },
             {
                 id: 3,
                 email: "user3.example.com",
                 name: "User Three",
                 firstName: "User",
-                lastName: "Three"
+                lastName: "Three",
+                password: "hashed_password"
             },
         ]
     }
@@ -101,5 +123,16 @@ export class UserV3MemoryRepository implements IUserWithFullNameRepository, IUse
         const userIndex = this.users.findIndex(user => user.id === id);
 
         return userIndex > 0
+    }
+
+    async getUserWithPassword(id: number): Promise<IAuthenticableUserRawData> {
+        const userData = this.users.find(user => user.id === id);
+        if (!userData) {
+            throw new Error(`User with id ${id} not found`);
+        }
+        return Promise.resolve({
+            id: userData.id,
+            password: userData.password
+        });
     }
 }
