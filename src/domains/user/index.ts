@@ -38,3 +38,8 @@ export * from "./savers/interfaces/authenticable-user-with-jwt-tokens.saver.inte
 export * from "./savers/interfaces/authenticable-user.saver.interface"
 export * from "./savers/interfaces/user-with-full-name.saver.interface"
 export * from "./savers/interfaces/user-saver.interface"
+
+export * from "./value-object/auth-jwt-tokens"
+export * from "./value-object/email"
+export * from "./value-object/full-name"
+export * from "./value-object/jwt-token"
