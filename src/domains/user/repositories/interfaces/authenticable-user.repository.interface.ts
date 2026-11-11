@@ -4,5 +4,5 @@ export interface IAuthenticableUserRawData {
 }
 
 export interface IAuthenticableUserRepository {
-    getUserWithPassword(id: number): Promise<IAuthenticableUserRawData>
+    getUserWithPassword(email: string): Promise<IAuthenticableUserRawData>
 }
