@@ -2,7 +2,7 @@ import { AuthJwtTokens } from "../value-object/auth-jwt-tokens"
 import { IAuthenticableUserWithJwtTokens } from "./interfaces/authenticable-user-with-jwt-tokens.interface"
 import { IAuthenticableUser } from "./interfaces/authenticable-user.interface"
 
-export class AuthenticableUserWithJwtTokens implements IAuthenticableUserWithJwtTokens {
+export class AuthenticableUserWithGeneratingJwtTokens implements IAuthenticableUserWithJwtTokens {
     constructor(
         protected readonly user: IAuthenticableUser,
     ) { }
