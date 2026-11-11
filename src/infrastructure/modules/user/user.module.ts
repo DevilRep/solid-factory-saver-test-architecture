@@ -6,6 +6,10 @@ import { EditableUserWithFullNameInjectableFactroy } from "./dependencies/editab
 import { UserWithFullNameInjectableFactory } from "./dependencies/user-with-full-name.injectable.factory";
 import { UserWithFullNameAndPhoneInjectableFactory } from "./dependencies/user-with-full-name-and-phone.injectable.factory";
 import { EditableUserInjectableFactory } from "./dependencies/editable-user.injectable.factory";
+import { AuthenticableUserWithGeneratingJwtTokensInjectableFactory } from "./dependencies/authenticable-user-with-generating-jwt-tokens.injectable.factory";
+import { AuthenticatedUserWithJwtRefreshTokenInjectableFactory } from "./dependencies/authenticated-user-with-jwt-refresh-token.injectable.factory";
+import { AuthenticatedUserWithJwtAccessTokenInjectableFactory } from "./dependencies/authenticated-user-with-jwt-access-token.injectable.factory";
+import { AuthenticatedUserInjectableFactory } from "./dependencies/authenticated-user.injectable.factory";
 
 const repo = new UserMemoryInjectableRepository()
 
@@ -28,6 +32,22 @@ const repo = new UserMemoryInjectableRepository()
             provide: 'IEditableUserFactory',
             useClass: EditableUserInjectableFactory
         },
+        {
+            provide: 'IAuthenticableUserWithJwtTokensFactory',
+            useClass: AuthenticableUserWithGeneratingJwtTokensInjectableFactory
+        },
+        {
+            provide: 'IAuthenticatedUserByJwtAccessTokenFactory',
+            useClass: AuthenticatedUserWithJwtAccessTokenInjectableFactory
+        },
+        {
+            provide: 'IAuthenticatedUserByJwtRefreshTokenFactory',
+            useClass: AuthenticatedUserWithJwtRefreshTokenInjectableFactory
+        },
+        {
+            provide: 'IAuthenticatedUserFactory',
+            useClass: AuthenticatedUserInjectableFactory
+        },
 
         {
             provide: 'IUserWithFullNameAndPhoneRepository',
@@ -35,6 +55,14 @@ const repo = new UserMemoryInjectableRepository()
         },
         {
             provide: 'IUserWithFullNameRepository',
+            useValue: repo
+        },
+        {
+            provide: 'IAuthenticableUserRepository',
+            useValue: repo
+        },
+        {
+            provide: 'IAuthenticatedUserRepository',
             useValue: repo
         },
 
@@ -45,7 +73,7 @@ const repo = new UserMemoryInjectableRepository()
         {
             provide: 'IUserSaver',
             useValue: repo
-        }
+        },
     ],
 })
 export class UserModule { }

@@ -1,6 +1,14 @@
 import { Body, Controller, Get, Inject, Param, Put, Version, VERSION_NEUTRAL } from "@nestjs/common"
 
-import type { IEditableUserFactory, IEditableUserWithFullNameFactory, IUserWithFullNameAndPhoneFactory, IUserWithFullNameFactory } from "@domain/user"
+import type {
+    AuthenticableUserWithGeneratingJwtTokensFactory,
+    AuthenticatedUserWithJwtAccessTokenFactory,
+    AuthenticatedUserWithJwtRefreshTokenFactory,
+    IEditableUserFactory,
+    IEditableUserWithFullNameFactory,
+    IUserWithFullNameAndPhoneFactory,
+    IUserWithFullNameFactory
+} from "@domain/user"
 
 import { EditableUserWithFullNameDataDto } from "./dto/editable-user-with-full-name-data.dto"
 import { UserWithFullNameAndPhoneDto } from "./dto/user-with-full-name-and-phone.dto"
@@ -21,7 +29,16 @@ export class UserController {
         private readonly userWithFullNameAndPhoneFactory: IUserWithFullNameAndPhoneFactory,
 
         @Inject('IEditableUserFactory')
-        private readonly editableUserFactory: IEditableUserFactory
+        private readonly editableUserFactory: IEditableUserFactory,
+
+        @Inject('IAuthenticableUserWithJwtTokensFactory')
+        private readonly authenticableUserWithGeneratingJwtTokensFactory: AuthenticableUserWithGeneratingJwtTokensFactory,
+
+        @Inject('IAuthenticatedUserByJwtAccessTokenFactory')
+        private readonly authenticatedUserWithJwtAccessTokenFactory: AuthenticatedUserWithJwtAccessTokenFactory,
+
+        @Inject('IAuthenticatedUserByJwtRefreshTokenFactory')
+        private readonly authenticatedUserWithJwtRefreshTokenFactory: AuthenticatedUserWithJwtRefreshTokenFactory
     ) { }
 
     /**
