@@ -32,12 +32,12 @@ export class JwtToken {
             ))
         )
 
-        if (typeof decodedData === "string" || !decodedData.sub) {
+        if (typeof decodedData === "string" || !decodedData.userId) {
             throw new Error('The token is invalid')
         }
 
         return new JwtToken(jwtToken, {
-            userId: +decodedData.sub
+            userId: +decodedData.userId
         })
     }
 
