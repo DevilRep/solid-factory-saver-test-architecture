@@ -44,7 +44,7 @@ export class UserV3MemoryRepository implements
                 name: "User One",
                 firstName: "User",
                 lastName: "One",
-                password: "hashed_password"
+                password: "$2b$10$.d4b4CKmgIZVxXecvkRco.jbf8rEQ1t.mDbd9qCgqSW2POMY/Mu8." // test1
             },
             {
                 id: 2,
@@ -122,7 +122,7 @@ export class UserV3MemoryRepository implements
     async isExist(id: number): Promise<boolean> {
         const userIndex = this.users.findIndex(user => user.id === id);
 
-        return userIndex > 0
+        return userIndex > -1
     }
 
     async getUserWithPassword(email: string): Promise<IAuthenticableUserRawData> {
