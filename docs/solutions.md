@@ -152,9 +152,9 @@ Getting the user data by a session ID should be implemented using a [read-from-
 
 ### Session auth, an external lib controls session storage
 
-Because the external lib returns the session data, there is no sense in creating a method to get the user data by session ID; instead, we could simply [read the data from storage by user ID](#reading-the-data). The auth wrapper also has the link to the saver, but it doesn't return a new session ID - it only starts the session using the lib, while the lib adds anything else (like the cookies) by itself.
+Because the external lib returns the session data, there is no sense in creating a method to get the user data by session ID; instead, the data could simply [be read from storage by user ID](#reading-the-data). Setting the session in this case should be outside of the domain logic.
 
-[Here](https://github.com/search?q=repo%3ADevilRep%2Fsolid-factory-saver-test-architecture+e9a&type=commits&s=committer-date&o=desc) you can find commits that show this process for JWT tokens.
+[Here](https://github.com/search?q=repo%3ADevilRep%2Fsolid-factory-saver-test-architecture+e9a&type=commits&s=committer-date&o=desc) you can find commits that show this process.
 
 ### JWT tokens auth, the project handles the tokens
 
