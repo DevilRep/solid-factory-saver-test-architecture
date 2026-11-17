@@ -1,9 +1,7 @@
-import { Body, Controller, Get, Inject, Param, Post, Put, Version, VERSION_NEUTRAL, Headers } from "@nestjs/common"
+import { Body, Controller, Get, Inject, Param, Put, Version, VERSION_NEUTRAL, Headers } from "@nestjs/common"
 
 import type {
-    AuthenticableUserWithGeneratingJwtTokensFactory,
-    AuthenticatedUserWithJwtAccessTokenFactory,
-    AuthenticatedUserWithJwtRefreshTokenFactory,
+    IAuthenticatedUserByJwtAccessTokenFactory,
     IEditableUserFactory,
     IEditableUserWithFullNameFactory,
     IUserWithFullNameAndPhoneFactory,
@@ -15,8 +13,6 @@ import { UserWithFullNameAndPhoneDto } from "./dto/user-with-full-name-and-phone
 import { EditableUserRawDataDto } from "./dto/editable-user-raw-data.dto"
 import { UserWithFullNameDto } from "./dto/user-with-full-name.dto"
 import { EditableUserWithFullNameRawData } from "./dto/editable-user-with-full-name-raw-data.dto"
-import { AuthenticatedUserWithJwtTokensDto } from "./dto/authenticated-user-with-jwt-tokens.dto"
-import { SignInRawDataDto } from "./dto/sign-in-raw-data.dto"
 
 @Controller('user')
 export class UserController {
@@ -33,14 +29,8 @@ export class UserController {
         @Inject('IEditableUserFactory')
         private readonly editableUserFactory: IEditableUserFactory,
 
-        @Inject('IAuthenticableUserWithJwtTokensFactory')
-        private readonly authenticableUserWithGeneratingJwtTokensFactory: AuthenticableUserWithGeneratingJwtTokensFactory,
-
         @Inject('IAuthenticatedUserByJwtAccessTokenFactory')
-        private readonly authenticatedUserWithJwtAccessTokenFactory: AuthenticatedUserWithJwtAccessTokenFactory,
-
-        @Inject('IAuthenticatedUserByJwtRefreshTokenFactory')
-        private readonly authenticatedUserWithJwtRefreshTokenFactory: AuthenticatedUserWithJwtRefreshTokenFactory
+        private readonly authenticatedUserWithJwtAccessTokenFactory: IAuthenticatedUserByJwtAccessTokenFactory,
     ) { }
 
     /**
@@ -77,6 +67,9 @@ export class UserController {
         return new UserWithFullNameDto(user)
     }
 
+    /**
+     * @deprecated
+     */
     @Version('2')
     @Put(':id')
     public async updateUserData(
@@ -88,15 +81,6 @@ export class UserController {
         return new UserWithFullNameDto(user)
     }
 
-    @Post('/sign-in')
-    public async signIn(
-        @Body() { email, password }: SignInRawDataDto
-    ): Promise<AuthenticatedUserWithJwtTokensDto> {
-        const user = await this.authenticableUserWithGeneratingJwtTokensFactory.createUserWithJwtTokensForSignIn(email)
-        const tokens = await user.signIn(password)
-        return new AuthenticatedUserWithJwtTokensDto(user, tokens)
-    }
-
     @Version('3')
     @Put('/')
     public async updateProfile(
@@ -104,20 +88,10 @@ export class UserController {
         @Headers('Authorization') authToken: string
     ): Promise<UserWithFullNameDto> {
         // this is only an example, in a real application you would use a middleware to extract the user
-        const authenticatedUser = await this.authenticatedUserWithJwtAccessTokenFactory.createAuthenticatedUserByJwtAccessToken(authToken.split(' ')[1])
+        const authenticatedUser = await this.authenticatedUserWithJwtAccessTokenFactory.createAuthenticatedUserByJwtAccessToken(authToken?.split(' ')[1])
 
         const user = await this.editableUserFactory.createUserForEdit(authenticatedUser.id)
         await user.change(data)
         return new UserWithFullNameDto(user)
-    }
-
-    @Version('3')
-    @Post('/auth-by-refresh-token')
-    public async getNewTokensByRefreshToken(
-        @Headers('Authorization') authToken: string
-    ): Promise<AuthenticatedUserWithJwtTokensDto> {
-        const user = await this.authenticatedUserWithJwtRefreshTokenFactory.createAuthenticatedUserByJwtRefreshToken(authToken.split(' ')[1])
-        const tokens = await user.generateNewAuthTokens()
-        return new AuthenticatedUserWithJwtTokensDto(user, tokens)
     }
 }
