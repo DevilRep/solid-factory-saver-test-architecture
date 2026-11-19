@@ -8,11 +8,16 @@ import { AuthenticatedUserInjectableFactory } from './dependencies/authenticated
 
 import { UserMemoryInjectableRepository } from '../user-repository/dependencies/user.memory.injectable.repository'
 import { UserRepositoryModule } from '../user-repository/user-repository.module'
+import { SessionController } from './controllers/session.controller';
+import { AuthenticableUserInjectableFactory } from './dependencies/authenticable-user.injectable.factory'
+import { SessionAuthProvider } from './providers/session-auth.provider'
 
 @Module({
   imports: [UserRepositoryModule],
-  controllers: [AuthController],
+  controllers: [AuthController, SessionController],
   providers: [
+    SessionAuthProvider,
+
     {
       provide: 'IAuthenticatedUserByJwtRefreshTokenFactory',
       useClass: AuthenticatedUserWithJwtRefreshTokenInjectableFactory
@@ -24,6 +29,10 @@ import { UserRepositoryModule } from '../user-repository/user-repository.module'
     {
       provide: 'IAuthenticatedUserFactory',
       useClass: AuthenticatedUserInjectableFactory
+    },
+    {
+      provide: 'IAuthenticableUserFactory',
+      useClass: AuthenticableUserInjectableFactory
     },
 
     {

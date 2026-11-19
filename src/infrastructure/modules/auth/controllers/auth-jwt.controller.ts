@@ -1,4 +1,5 @@
 import { Controller, Inject, Post, Headers, Body } from '@nestjs/common'
+import { Public } from '@nestjs/authentication'
 
 import type {
     IAuthenticableUserWithJwtTokensFactory,
@@ -7,6 +8,8 @@ import type {
 import { AuthenticatedUserWithJwtTokensDto } from '../dto/authenticated-user-with-jwt-tokens.dto'
 import { SignInRawDataDto } from '../dto/sign-in-raw-data.dto'
 
+
+@Public()
 @Controller('auth/jwt')
 export class AuthController {
     constructor(
