@@ -5,11 +5,6 @@ import { FullName } from "../value-object/full-name"
 interface IUserData {
     readonly id: number
 
-    /**
-     * @deprecated
-     */
-    readonly phone?: string
-
     readonly name?: string
 
     readonly emailVO: Email
@@ -19,19 +14,12 @@ interface IUserData {
 export class User implements IReadableUserWithFullName {
     public readonly id: number
 
-    /**
-     * @deprecated
-     */
-    public phone: string
-
     public emailVO: Email
 
     public fullNameVO: FullName
 
     constructor(data: IUserData) {
         this.id = data.id
-
-        this.phone = data.phone || ''
 
         this.emailVO = data.emailVO
 

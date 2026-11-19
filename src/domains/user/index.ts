@@ -1,5 +1,4 @@
 export * from "./entities/interfaces/user-with-full-name.interface"
-export * from "./entities/interfaces/user-with-full-name-and-phone.interface"
 export * from "./entities/interfaces/authenticated-user.interface"
 
 export * from "./factories/interfaces/authenticable-user.factory.interface"
@@ -7,9 +6,7 @@ export * from "./factories/interfaces/authenticable-user-with-jwt-tokens.factory
 export * from "./factories/interfaces/authenticated-user-by-jwt-access-token.factory.interface"
 export * from "./factories/interfaces/authenticated-user-by-jwt-refresh-token.factory.interface"
 export * from "./factories/interfaces/authenticated-user.factory.interface"
-export * from "./factories/interfaces/editable-user-with-full-name.factory.interface"
 export * from "./factories/interfaces/editable-user-factory.interface"
-export * from "./factories/interfaces/user-with-full-name-and-phone.factory.interface"
 export * from "./factories/interfaces/user-with-full-name.factory.interface"
 
 export * from "./factories/authenticable-user.factory"
@@ -17,23 +14,18 @@ export * from "./factories/authenticable-user-with-generating-jwt-tokens.factory
 export * from "./factories/authenticated-user-with-jwt-access-token.factory"
 export * from "./factories/authenticated-user-with-jwt-refresh-token.factory"
 export * from "./factories/authenticated-user.factory"
-export * from "./factories/editable-user-with-full-name.factory"
 export * from "./factories/editable-user.factory"
-export * from "./factories/user-with-full-name-and-phone.factory"
 export * from "./factories/user-with-full-name.factory"
 
 export * from "./repositories/interfaces/authenticable-user.repository.interface"
 export * from "./repositories/interfaces/authenticated-user.repository.interface"
-export * from "./repositories/interfaces/user-with-full-name-and-phone.repository.interface"
 export * from "./repositories/interfaces/user-with-full-name.repository.interface"
 
 export * from "./wrappers/interfaces/authenticable-user-with-jwt-tokens.interface"
 export * from "./wrappers/interfaces/authenticable-user.interface"
 export * from "./wrappers/interfaces/authenticated-user-with-jwt-tokens.interface"
-export * from "./wrappers/interfaces/editable-user-with-full-name.interface"
 export * from "./wrappers/interfaces/editable-user.interface"
 
-export * from "./savers/interfaces/user-with-full-name.saver.interface"
 export * from "./savers/interfaces/user-saver.interface"
 
 export * from "./value-object/auth-jwt-tokens"
