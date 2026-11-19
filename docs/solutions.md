@@ -177,9 +177,9 @@ Key points for auth while passing a refresh JWT token:
 
 ### JWT tokens auth, an external lib handles the tokens
 
-Because the external lib covers the decryption, this case can also use the simplest way to get the user data - just by user ID. The auth wrapper also returns two tokens, but the values for them should be obtained using another approach - a saver. This saver creates the token using the external lib and returns two strings. Then the auth wrapper can create value objects from these strings.
+Because the external lib covers the decryption, this case can also use the simplest way to get the user data - just by user ID. The sign-in process can rely on the password check only, while generating the tokens should be called outside the domain level.
 
-The refresh token can be handled using both approaches above (getting the user data by user ID and the auth wrapper) or, if the external lib supports it, on its own.
+The refresh token can be handled using the same approach as for [the previous case](#jwt-tokens-auth-the-project-handles-the-tokens) or, if the external lib supports it, on its own.
 
 [Here](https://github.com/search?q=repo%3ADevilRep%2Fsolid-factory-saver-test-architecture+e9c&type=commits&s=committer-date&o=desc) you can find commits that show this process for JWT tokens.
 
