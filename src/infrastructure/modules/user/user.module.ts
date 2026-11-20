@@ -1,6 +1,7 @@
 import { Module } from "@nestjs/common"
 
 import { UserV1Controller } from "./controllers/user-v1.controller"
+import { UserV2Controller } from "./controllers/user-v2.controller"
 
 import { UserWithFullNameInjectableFactory } from "./dependencies/user-with-full-name.injectable.factory"
 import { EditableUserInjectableFactory } from "./dependencies/editable-user.injectable.factory"
@@ -13,7 +14,7 @@ import { UserRepositoryModule } from "../user-repository/user-repository.module"
 
 @Module({
     imports: [UserRepositoryModule],
-    controllers: [UserV1Controller],
+    controllers: [UserV1Controller, UserV2Controller],
     providers: [
         {
             provide: 'IUserWithFullNameFactory',

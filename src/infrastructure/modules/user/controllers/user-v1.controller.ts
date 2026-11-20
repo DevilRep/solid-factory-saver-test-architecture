@@ -1,9 +1,8 @@
-import { Body, Controller, Get, Inject, Param, Put, Headers, Version } from "@nestjs/common"
-import { CurrentUser, Public } from "@nestjs/authentication"
+import { Body, Controller, Get, Inject, Put } from "@nestjs/common"
+import { CurrentUser } from "@nestjs/authentication"
 
 import type {
     IAuthenticatedUser,
-    IAuthenticatedUserByJwtAccessTokenFactory,
     IEditableUserFactory,
     IUserWithFullNameFactory
 } from "@domain/user"
@@ -22,9 +21,6 @@ export class UserV1Controller {
 
         @Inject('IEditableUserFactory')
         private readonly editableUserFactory: IEditableUserFactory,
-
-        @Inject('IAuthenticatedUserByJwtAccessTokenFactory')
-        private readonly authenticatedUserWithJwtAccessTokenFactory: IAuthenticatedUserByJwtAccessTokenFactory,
     ) { }
 
     @Get('/')
@@ -40,21 +36,6 @@ export class UserV1Controller {
         @Body() data: EditableUserWithFullNameRawData,
         @CurrentUser() authenticatedUser: IAuthenticatedUser
     ): Promise<UserWithFullNameDto> {
-        const user = await this.editableUserFactory.createUserForEdit(authenticatedUser.id)
-        await user.change(data)
-        return new UserWithFullNameDto(user)
-    }
-
-    @Version('2')
-    @Public()
-    @Put('/')
-    public async updateProfileByJwtToken(
-        @Body() data: EditableUserWithFullNameRawData,
-        @Headers('Authorization') authToken: string
-    ): Promise<UserWithFullNameDto> {
-        // this is only an example, in a real application you would use a middleware to extract the user
-        const authenticatedUser = await this.authenticatedUserWithJwtAccessTokenFactory.createAuthenticatedUserByJwtAccessToken(authToken?.split(' ')[1])
-
         const user = await this.editableUserFactory.createUserForEdit(authenticatedUser.id)
         await user.change(data)
         return new UserWithFullNameDto(user)
