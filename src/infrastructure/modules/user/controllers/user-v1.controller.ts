@@ -1,17 +1,21 @@
-import { Body, Controller, Get, Inject, Param, Put, Headers } from "@nestjs/common"
+import { Body, Controller, Get, Inject, Param, Put, Headers, Version } from "@nestjs/common"
+import { CurrentUser, Public } from "@nestjs/authentication"
 
 import type {
+    IAuthenticatedUser,
     IAuthenticatedUserByJwtAccessTokenFactory,
     IEditableUserFactory,
     IUserWithFullNameFactory
 } from "@domain/user"
 
-import { UserWithFullNameDto } from "./dto/user-with-full-name.dto"
-import { EditableUserWithFullNameRawData } from "./dto/editable-user-with-full-name-raw-data.dto"
-import { Public } from "@nestjs/authentication"
+import { UserWithFullNameDto } from "../dto/user-with-full-name.dto"
+import { EditableUserWithFullNameRawData } from "../dto/editable-user-with-full-name-raw-data.dto"
 
-@Controller('user')
-export class UserController {
+@Controller({
+    path: 'user',
+    version: '1'
+})
+export class UserV1Controller {
     constructor(
         @Inject('IUserWithFullNameFactory')
         private readonly userWithFullNameFactory: IUserWithFullNameFactory,
@@ -23,17 +27,28 @@ export class UserController {
         private readonly authenticatedUserWithJwtAccessTokenFactory: IAuthenticatedUserByJwtAccessTokenFactory,
     ) { }
 
-    @Get(':id')
+    @Get('/')
     public async getUserWithFullNameById(
-        @Param('id') id: number
+        @CurrentUser() authoricatedUser: IAuthenticatedUser
     ): Promise<UserWithFullNameDto> {
-        const user = await this.userWithFullNameFactory.createUserWithFullName(+id)
+        const user = await this.userWithFullNameFactory.createUserWithFullName(authoricatedUser.id)
         return new UserWithFullNameDto(user)
     }
 
+    @Put('/')
+    public async updateProfileBySession(
+        @Body() data: EditableUserWithFullNameRawData,
+        @CurrentUser() authenticatedUser: IAuthenticatedUser
+    ): Promise<UserWithFullNameDto> {
+        const user = await this.editableUserFactory.createUserForEdit(authenticatedUser.id)
+        await user.change(data)
+        return new UserWithFullNameDto(user)
+    }
+
+    @Version('2')
     @Public()
-    @Put('/by-jwt-token')
-    public async updateProfile(
+    @Put('/')
+    public async updateProfileByJwtToken(
         @Body() data: EditableUserWithFullNameRawData,
         @Headers('Authorization') authToken: string
     ): Promise<UserWithFullNameDto> {
