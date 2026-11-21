@@ -5,6 +5,7 @@ import type { IAuthenticableUserFactory, IAuthenticatedUser } from '@domain/user
 
 import { AuthenticatedUserWithJwtTokensDto } from '../dto/authenticated-user-with-jwt-tokens.dto'
 import { SignInRawDataDto } from '../dto/sign-in-raw-data.dto'
+import { AuthTokensDto } from '../dto/auth-tokens.dto'
 
 @Public()
 @Controller('auth/jwt-nest')
@@ -39,13 +40,12 @@ export class AuthJwtNestController {
     @Post('/refresh-token')
     public async getNewTokensByRefreshToken(
         @Headers('Authorization') refreshToken: string,
-        @CurrentUser() authenticatedUser: IAuthenticatedUser
-    ): Promise<AuthenticatedUserWithJwtTokensDto> {
-        const tokens = await this.tokenService.refresh(refreshToken)
+    ): Promise<AuthTokensDto> {
+        const tokens = await this.tokenService.refresh(refreshToken?.split(' ')?.[1])
 
-        return new AuthenticatedUserWithJwtTokensDto(authenticatedUser, {
-            accessToken: tokens.accessToken,
-            refreshToken: tokens.refreshToken
-        })
+        return new AuthTokensDto(
+            tokens.accessToken,
+            tokens.refreshToken
+        )
     }
 }
