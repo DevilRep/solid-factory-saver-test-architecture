@@ -12,7 +12,7 @@ import { EditableUserWithFullNameRawData } from "../dto/editable-user-with-full-
 
 @Controller({
     path: 'user',
-    version: '1'
+    version: ['1', '3']
 })
 export class UserV1Controller {
     constructor(
