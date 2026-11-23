@@ -7,5 +7,5 @@ export interface IUnregisteredUserRawData {
 }
 
 export interface IUnregisteredUserFactory {
-    createUnregisteredUser(data: IUnregisteredUserRawData): IUnregisteredUser
+    createUnregisteredUser(data: IUnregisteredUserRawData): Promise<IUnregisteredUser>
 }
