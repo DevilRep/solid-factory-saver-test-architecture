@@ -1,6 +1,7 @@
 export interface ISignUpUserRawData {
     readonly firstName: string
     readonly lastName: string
+    readonly pasword: string
 }
 
 export interface ISignUpUserResult {
