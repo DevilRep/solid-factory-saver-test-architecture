@@ -12,7 +12,7 @@ This list outlines challenges and solutions to help you understand how this arch
 7. [A business validation rule](#a-business-validation-rule).
 8. [Code lifecycle: removing a field](#removing-a-field).
 9. [Auth process](#auth-process) (additional separate action).
-10. Sign up.
+10. [Sign up](#auth-process).
 11. Checking access restrictions before reading the data (additional separate action).
 12. Saving changelogs while updating the data in the store (additional separate action)
 13. Transactional updating.
@@ -183,3 +183,14 @@ The refresh token can be handled using the same approach as for [the previous ca
 
 [Here](https://github.com/search?q=repo%3ADevilRep%2Fsolid-factory-saver-test-architecture+e9c&type=commits&s=committer-date&o=desc) you can find commits that show this process for JWT tokens.
 
+## Sign up
+
+This case faces two issues:
+* where should be checked whether a user exists or not?
+* who should call the save action: a controller or a factory?
+
+The first issue is related to the place: the factory or the entity's constructor. Both approaches have some pros and cons. But due to the statement that an entity object should be valid, it's better to move this logic to the entity's constructor.
+
+The second issue relates to the fact that the factory shouldn't call entity objects' functions - it should only create an object, while the controller calls the function. But this means an entity object should be created before this call, and it can't be the registered user, because the function call should register him. To deal with this part, it's better to look at such an object as an unregistered user. Such a user can't have an ID. Additionally, the object has only one method that registers the user and returns a new object that describes the registered user.
+
+[Here](https://github.com/search?q=repo%3ADevilRep%2Fsolid-factory-saver-test-architecture+e10&type=commits&s=committer-date&o=desc) you can find commits that show this process
