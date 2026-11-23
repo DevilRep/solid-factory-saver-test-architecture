@@ -1,6 +1,6 @@
 export interface IPotentialSameUserRawData {
     readonly id: number
-    readonly email: number
+    readonly email: string
 }
 
 export interface IPotentialSameUserRepository {
