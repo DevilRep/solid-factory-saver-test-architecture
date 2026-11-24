@@ -1,7 +1,7 @@
 export interface ISignUpUserRawData {
     readonly firstName: string
     readonly lastName: string
-    readonly pasword: string
+    readonly password: string
     readonly email: string
 }
 
