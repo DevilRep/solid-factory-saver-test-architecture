@@ -35,7 +35,7 @@ export class UnregisteredUser implements IUnregisteredUser {
             firstName: this.fullName.firstName,
             lastName: this.fullName.lastName || '',
             email: this.email.value,
-            pasword: (await userPassword).hashedValue
+            password: userPassword.hashedValue
         })
 
         return new User({
