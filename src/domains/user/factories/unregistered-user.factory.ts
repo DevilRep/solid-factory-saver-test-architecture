@@ -1,7 +1,7 @@
 import { IUnregisteredUser } from "../entities/interfaces/unregistered-user.interface"
 import { PotentialSameUser } from "../entities/potential-same-user"
 import { UnregisteredUser } from "../entities/unregistered-user"
-import { IPotentialSameUserRepository } from "../repositories/interfaces/potential-same-user.repository.interface"
+import { IPotentialSameUserRawData, IPotentialSameUserRepository } from "../repositories/interfaces/potential-same-user.repository.interface"
 import { ISignUpUserSaver } from "../savers/interfaces/sign-up-user.saver.interface"
 import { Email } from "../value-object/email"
 import { FullName } from "../value-object/full-name"
@@ -14,13 +14,16 @@ export class UnregisteredUserFactory implements IUnregisteredUserFactory {
     ) { }
 
     async createUnregisteredUser({ email, firstName, lastName }: IUnregisteredUserRawData): Promise<IUnregisteredUser> {
-        const { id: potentialSameUserId, email: potentialSameUserEmail } = await this.repository.getUserByEmail(email)
+        let potentialSameUser: IPotentialSameUserRawData | null = null
+        try {
+            potentialSameUser = await this.repository.getUserByEmail(email)
+        } catch (error) { }
 
         return new UnregisteredUser(
             new Email(email),
             new FullName(firstName, lastName),
             this.saver,
-            potentialSameUserId ? new PotentialSameUser(potentialSameUserId, new Email(potentialSameUserEmail)) : undefined
+            potentialSameUser ? new PotentialSameUser(potentialSameUser.id, new Email(potentialSameUser.email)) : undefined
         )
     }
 }
