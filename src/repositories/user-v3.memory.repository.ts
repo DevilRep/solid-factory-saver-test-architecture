@@ -6,6 +6,11 @@ import {
     IUserWithFullNameRepositoryData,
     IAuthenticableUserRepository,
     IAuthenticableUserRawData,
+    ISignUpUserSaver,
+    IPotentialSameUserRepository,
+    IPotentialSameUserRawData,
+    ISignUpUserRawData,
+    ISignUpUserResult,
 } from "@domain/user";
 
 interface IUserMemoryRepositoryData {
@@ -22,7 +27,9 @@ export class UserV3MemoryRepository implements
     IUserWithFullNameRepository,
     IAuthenticatedUserRepository,
     IAuthenticableUserRepository,
-    IUserSaver {
+    IPotentialSameUserRepository,
+    IUserSaver,
+    ISignUpUserSaver {
     protected users: IUserMemoryRepositoryData[] = []
 
     constructor() {
@@ -92,5 +99,29 @@ export class UserV3MemoryRepository implements
             id: userData.id,
             password: userData.password
         });
+    }
+
+    async getUserByEmail(email: string): Promise<IPotentialSameUserRawData> {
+        const userData = this.users.find(user => user.email === email);
+        if (!userData) {
+            throw new Error(`User with email ${email} not found`);
+        }
+        return Promise.resolve({
+            id: userData.id,
+            email: userData.email
+        });
+    }
+
+    async createNewUser(data: ISignUpUserRawData): Promise<ISignUpUserResult> {
+        const newRecord = { ...data, id: this.users.length + 1 }
+
+        this.users.push(newRecord)
+
+        return {
+            id: newRecord.id,
+            firstName: newRecord.firstName || '',
+            lastName: newRecord.lastName || '',
+            email: newRecord.email,
+        }
     }
 }

@@ -13,10 +13,12 @@ import { UserMemoryInjectableRepository } from '../user-repository/dependencies/
 import { UserRepositoryModule } from '../user-repository/user-repository.module'
 import { SessionAuthProvider } from './providers/session-auth.provider'
 import { JwtAuthProvider } from './providers/jwt-auth.provider'
+import { SignUpController } from './controllers/sign-up.controller'
+import { UnregisteredUserInjectableFactory } from './dependencies/unregistered-user.injectable.factory'
 
 @Module({
   imports: [UserRepositoryModule],
-  controllers: [AuthController, SessionController, AuthJwtNestController],
+  controllers: [AuthController, SessionController, AuthJwtNestController, SignUpController],
   providers: [
     SessionAuthProvider,
     JwtAuthProvider,
@@ -37,6 +39,10 @@ import { JwtAuthProvider } from './providers/jwt-auth.provider'
       provide: 'IAuthenticableUserFactory',
       useClass: AuthenticableUserInjectableFactory
     },
+    {
+      provide: 'IUnregisteredUserFactory',
+      useClass: UnregisteredUserInjectableFactory
+    },
 
     {
       provide: 'IAuthenticableUserRepository',
@@ -44,6 +50,14 @@ import { JwtAuthProvider } from './providers/jwt-auth.provider'
     },
     {
       provide: 'IAuthenticatedUserRepository',
+      useExisting: UserMemoryInjectableRepository
+    },
+    {
+      provide: 'IPotentialSameUserRepository',
+      useExisting: UserMemoryInjectableRepository
+    },
+    {
+      provide: 'ISignUpUserSaver',
       useExisting: UserMemoryInjectableRepository
     },
   ],
