@@ -197,10 +197,6 @@ The second issue relates to the fact that the factory shouldn't call entity obje
 
 ## Checking access restrictions before an action
 
-This case covers two situations:
-* updating the current user
-* reading the data with restricted access
-
-Both cases use the same approach: an entity wrapper checks if the current user has access to the action or not. The wrapper receives two objects in the constructor: an object for checks and the current authorized user. The constructor makes the decision and throws an exception if needed.
+This case use the next approach: an entity wrapper checks if the current user has access to the action or not. The wrapper receives two objects in the constructor: an object for checks and the current authorized user. The constructor makes the decision and throws an exception if needed.
 
 [Here](https://github.com/search?q=repo%3ADevilRep%2Fsolid-factory-saver-test-architecture+e11&type=commits&s=committer-date&o=desc) you can find commits that show this process.
